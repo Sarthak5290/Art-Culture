@@ -12,9 +12,6 @@ def render(app_data):
     selected_category_id = st.session_state.selected_category
     category_info = app_data.get(selected_category_id)
 
-    # Enhanced navigation
-    render_back_to_categories_button()
-
     if category_info:
         # Category header with hero styling - Updated for dark theme with moved up positioning
         st.markdown(

@@ -44,24 +44,44 @@ def apply_custom_css():
     .css-1lcbmhc {display: none;}
     .css-1outpf7 {display: none;}
     
-    /* Adjust main content to full width */
+    /* Remove top spacing and adjust main content to full width */
+    .stApp {
+        margin-top: -100px !important;
+        padding-top: 0 !important;
+    }
+    
     .main .block-container {
+        padding-top: 0 !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
         max-width: none !important;
         width: 100% !important;
+        margin-top: 0 !important;
     }
     
-    /* Ensure content uses full width */
+    /* Ensure content uses full width and removes top spacing */
     .stApp > div:first-child {
         margin-left: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
     
+    /* Remove any default top margins/padding */
+    div[data-testid="stAppViewContainer"] {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+    
+    div[data-testid="stMain"] {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
     
     /* Global Styles */
     .main {
         padding: 0rem 1rem;
         background-color: #0E1117;
+        margin-top: 0 !important;
     }
     
     /* Custom Color Palette - Dark Theme */
@@ -267,7 +287,7 @@ def apply_custom_css():
         border-color: var(--primary-blue) !important;
     }
     
-    /* Hero Section */
+    /* Hero Section - Updated to start from very top */
     .hero-section {
         background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
         padding: 4rem 2rem;
@@ -275,6 +295,7 @@ def apply_custom_css():
         text-align: center;
         border-radius: 0 0 30px 30px;
         border-bottom: 2px solid var(--border-color);
+        margin-top: -1rem !important;
     }
     
     .hero-subtitle {
