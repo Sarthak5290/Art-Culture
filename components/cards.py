@@ -40,8 +40,8 @@ def render_item_card(item, category_id, item_index):
             <img src="{image_url}" alt="{item_title}" />
         </div>
         <div class="card-content">
-            <h4 class="card-title" style="font-size: 1.2rem; color: var(--text-light);">{item_title}</h4>
-            <p class="card-description" style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-secondary);">{preview_text}</p>
+            <h4 class="card-title" style="font-size: 1.2rem;">{item_title}</h4>
+            <p class="card-description" style="font-size: 0.85rem; margin-bottom: 1rem;">{preview_text}</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -99,16 +99,16 @@ def render_featured_card(item, category_id, item_index, is_featured=True):
     featured_class = "featured-card" if is_featured else "item-card"
     
     st.markdown(f"""
-    <div class="{featured_class}">
+    <div class="{featured_class}" style="background: linear-gradient(135deg, #FFF9E6, #FFFFFF); border: 2px solid #D4AF37;">
         <div class="item-image-container" style="height: 220px;">
             <img src="{image_url}" alt="{item_title}" />
-            <div style="position: absolute; top: 10px; right: 10px; background: var(--primary-blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">
+            <div style="position: absolute; top: 10px; right: 10px; background: #4A90E2; color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">
                 ⭐ Featured
             </div>
         </div>
         <div class="card-content">
-            <h4 class="card-title" style="font-size: 1.3rem; color: var(--text-light);">{item_title}</h4>
-            <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.2rem; color: var(--text-secondary);">{preview_text}</p>
+            <h4 class="card-title" style="font-size: 1.3rem; color: #1E3A5F;">{item_title}</h4>
+            <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.2rem; color: #444;">{preview_text}</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -137,8 +137,8 @@ def render_compact_item_list(items, category_id, max_items=6):
         with col2:
             st.markdown(f"""
             <div style="padding-left: 1rem;">
-                <h5 style="margin: 0; color: var(--text-light); font-size: 1rem;">{item_title}</h5>
-                <p style="margin: 0.2rem 0; color: var(--text-secondary); font-size: 0.85rem;">{get_item_preview(item)[:80]}...</p>
+                <h5 style="margin: 0; color: #1E3A5F; font-size: 1rem;">{item_title}</h5>
+                <p style="margin: 0.2rem 0; color: #666; font-size: 0.85rem;">{get_item_preview(item)[:80]}...</p>
             </div>
             """, unsafe_allow_html=True)
             
@@ -146,4 +146,4 @@ def render_compact_item_list(items, category_id, max_items=6):
                 navigate_to_item(item)
         
         if i < len(items[:max_items]) - 1:
-            st.markdown('<hr style="border-color: var(--border-color); margin: 1rem 0;">', unsafe_allow_html=True)
+            st.markdown("---")

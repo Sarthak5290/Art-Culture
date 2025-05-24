@@ -29,12 +29,16 @@ def render_image_gallery(selected_item):
     images = selected_item.get("images", [])
 
     if images and len(images) > 0:
+        st.markdown(
+            '<h3 class="item-section-title" style="color: var(--text-light);"> Gallery</h3>',
+            unsafe_allow_html=True,
+        )
 
         # For single image, display simple view with full-screen option
         if len(images) == 1:
             st.markdown(
                 """
-            <div style="text-align: center; margin: -2rem -1rem 2rem -1rem; height: 100vh; display: flex; align-items: center; justify-content: center;">
+            <div style="text-align: center; margin: 2rem 0;">
             """,
                 unsafe_allow_html=True,
             )
@@ -50,20 +54,10 @@ def render_image_gallery(selected_item):
                     overflow: hidden;
                     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
                     transition: transform 0.3s ease;
-                    max-height: 90vh;
-                    max-width: 100%;
                 }}
                 
                 .single-image-container:hover {{
                     transform: scale(1.02);
-                }}
-                
-                .single-image-container img {{
-                    max-height: 90vh;
-                    max-width: 100%;
-                    height: auto;
-                    width: auto;
-                    object-fit: contain;
                 }}
                 
                 .single-image-fullscreen-btn {{
@@ -89,12 +83,12 @@ def render_image_gallery(selected_item):
             </style>
             
             <div class="single-image-container" onclick="openFullscreen('{images[0]}', 'Main Image')">
-                <img src="{images[0]}" alt="Main Image">
+                <img src="{images[0]}" style="max-width: 100%; height: auto; display: block;" alt="Main Image">
                 <button class="single-image-fullscreen-btn" onclick="event.stopPropagation(); openFullscreen('{images[0]}', 'Main Image')">⛶</button>
             </div>
             """
             
-            st.components.v1.html(single_image_html, height=800)
+            st.components.v1.html(single_image_html, height=400)
             st.markdown("</div>", unsafe_allow_html=True)
             return
 
@@ -117,18 +111,15 @@ def render_image_gallery(selected_item):
                 background: rgba(30, 30, 30, 0.9);
                 border-radius: 16px;
                 padding: 25px;
-                margin: -2rem -1rem 20px -1rem;
+                margin: 20px 0;
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                height: 100vh;
-                max-height: 100vh;
             }}
             
             .streamlit-slider-container {{
                 display: flex;
                 gap: 25px;
                 align-items: flex-start;
-                height: calc(100vh - 50px);
-                min-height: calc(100vh - 50px);
+                min-height: 400px;
             }}
             
             .streamlit-main-image-section {{
@@ -740,8 +731,8 @@ def render_image_gallery(selected_item):
         </script>
         """
 
-        # Render the HTML component with full viewport height
-        st.components.v1.html(slider_html, height=800)
+        # Render the HTML component with increased height for better viewing
+        st.components.v1.html(slider_html, height=600)
 
 
 def render_content_sections(selected_item):
@@ -830,38 +821,165 @@ def render_content_sections(selected_item):
 
 
 def render_content_section(key, value, is_priority=False):
-    """Render a single content section with appropriate styling."""
+    """Render a single content section with enhanced styling."""
     display_title = format_section_title(key)
+    
+    # Special treatment for summary section
+    if key == "summary":
+        st.markdown(f"""
+        <div style="
+            background: var(--surface-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--highlight-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 1.2rem;
+                color: var(--highlight-color);
+            ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <path d="M14 2v6h6"></path>
+                    <path d="M16 13H8"></path>
+                    <path d="M16 17H8"></path>
+                    <path d="M10 9H8"></path>
+                </svg>
+                <h3 style="
+                    margin: 0;
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    color: var(--text-light);
+                ">
+                    Key Summary
+                </h3>
+            </div>
+            <div style="
+                color: var(--text-secondary);
+                line-height: 1.7;
+                font-size: 1rem;
+                background: linear-gradient(to right, var(--surface-bg), var(--background-color));
+                padding: 1rem;
+                border-radius: 8px;
+            ">
+                {value}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        return
 
+    # Enhanced information sections
     if is_priority:
-        st.markdown(
-            f'<h4 class="item-section-title" style="font-size: 1.4rem; color: var(--text-light);">✨ {display_title}</h4>',
-            unsafe_allow_html=True,
-        )
+        st.markdown(f"""
+        <div style="
+            margin: 1.5rem 0;
+            padding: 1.25rem;
+            background: var(--surface-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        ">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 1rem;
+                color: var(--highlight-color);
+            ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                </svg>
+                <h4 style="
+                    margin: 0;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: var(--text-light);
+                ">
+                    {display_title}
+                </h4>
+            </div>
+            <div style="
+                color: var(--text-secondary);
+                line-height: 1.6;
+                font-size: 0.95rem;
+            ">
+                {value}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(
-            f'<h5 style="color: var(--text-light); margin: 1.5rem 0 0.8rem 0; font-size: 1.1rem;">📌 {display_title}</h5>',
-            unsafe_allow_html=True,
-        )
-
-    if isinstance(value, dict):
-        render_dict_content(value)
-    else:
-        content = str(value)
-        if len(content) > 500:
-            # For long content, add expandable section
-            with st.expander(
-                f"Read full {display_title.lower()}", expanded=is_priority
-            ):
-                st.markdown(
-                    f'<div class="item-content" style="color: var(--text-secondary);">{content}</div>',
-                    unsafe_allow_html=True,
-                )
+        # Grid layout for key information pairs
+        if isinstance(value, dict):
+            cols = st.columns(2)
+            for i, (sub_key, sub_value) in enumerate(value.items()):
+                with cols[i % 2]:
+                    st.markdown(f"""
+                    <div style="
+                        background: var(--surface-bg);
+                        padding: 1rem;
+                        border-radius: 8px;
+                        margin: 0.5rem 0;
+                        border: 1px solid var(--border-color);
+                    ">
+                        <div style="
+                            font-size: 0.9rem;
+                            color: var(--text-muted);
+                            margin-bottom: 0.25rem;
+                        ">
+                            {format_section_title(sub_key)}
+                        </div>
+                        <div style="
+                            font-size: 1rem;
+                            color: var(--text-light);
+                            font-weight: 500;
+                        ">
+                            {sub_value}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
         else:
-            st.markdown(
-                f'<div class="item-content" style="color: var(--text-secondary);">{content}</div>',
-                unsafe_allow_html=True,
-            )
+            st.markdown(f"""
+            <div style="
+                background: var(--surface-bg);
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+                border-left: 3px solid var(--highlight-color);
+            ">
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 0.5rem;
+                ">
+                    <div style="
+                        width: 6px;
+                        height: 6px;
+                        background: var(--highlight-color);
+                        border-radius: 50%;
+                    "></div>
+                    <h5 style="
+                        margin: 0;
+                        font-size: 1rem;
+                        color: var(--text-light);
+                    ">
+                        {display_title}
+                    </h5>
+                </div>
+                <div style="
+                    color: var(--text-secondary);
+                    line-height: 1.6;
+                    font-size: 0.95rem;
+                ">
+                    {value}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 
 def render_list_section(key, value_list):
