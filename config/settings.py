@@ -6,13 +6,13 @@ INITIAL_CATEGORIES = {
     "sculptures_architecture": {
         "displayTitle": "Sculptures & Architecture",
         "displayDescription": "Explore the world of sculptures and architectural marvels.",
-        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCIMvvu009IYKKR23kFB_VvCT-k_d0ry8A1jYHGa30XDXzMdboQ_-yBYPsyw0nqO4PHd9n7cIEdhCymPozDsDegpFXfmjvQNqhQ_6aA0m0Nm0KXRwEjVWwv4QstI7JTIgfzRLfk7xLNjAkmgPkFs79VrUq8SwPllItyxctRykAQLuGd-O9xyAL_NcC9fIlgCxlMw3G77q1RtkanFLBgDDaDChWXcrFqGQW1J2x7_qABbDcy4gyOrWi3HrUn3VcahfLzesNlAd2ils",
+        "mainCardImage": "https://courses.mapacademy.io/wp-content/uploads/2022/04/1024px-Konark-sun-temple-wheel-1.jpeg",
         "items": [],
     },
     "handicrafts_paintings": {
         "displayTitle": "Handicrafts & Paintings",
         "displayDescription": "Discover the beauty of handicrafts and paintings.",
-        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDpuMxPXONfT-EXyKmwvxQ6PNaeRtAGRcm-sy5i-SEBd1vG-t2rDQxsLDpTKJEtxnfvZBbwhnEhGodoPv2_8zOp3f4p19LwvnVlHeRhxTiyH4eWujenXBDTtVRauKcWvhtkPmRT1FzKLET2bys5NYF9yAbMj6rMCBx1AIKMF-h4Opr_iSAvz3jjRuJPUEdS0TgPqc_TdRm-8cuJbTb0wtzuonY5yjhLb89PkBLSAx9QrOvAQbFNgM-STWt3RECnpAHsy9TJF5xzCpo",
+        "mainCardImage": "https://rajasthanyatra.in/blog/wp-content/uploads/2024/05/Festivals-of-Rajasthan.webp",
         "items": [],
     },
     "performing_arts_festivals": {
@@ -24,7 +24,7 @@ INITIAL_CATEGORIES = {
     "artists": {
         "displayTitle": "Artists",
         "displayDescription": "Learn about the lives and works of famous artists.",
-        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCQJIhb-r1gfLguzlLyVcf11L9NjhJ8lq_fU9VtFTVsScOOpF3CezgwqAGOD1kxgRphKcxbKBJZbdpxuRiPvFKbmhyPiryIq3R3VD57G8oA9p6RSTPLD1-a0Bf9g2a-xs6lyVguxQVDJ8iVed3AcJw6rDMDU_NTPenjscWpJCOU5SipjAHC6VY3VvduTva-G8tBMWi35OtuAXeVUHioIYnRJigkGAeLhoTQkflNYUoSlJHjYztyoIurLCXwtY9gu7JgeDduJOyA9c",
+        "mainCardImage": "https://t3.ftcdn.net/jpg/01/79/46/68/240_F_179466839_nARiMdo6ocQWnw6X5YyecerwSYnAVb88.jpg",
         "items": [],
     },
 }
