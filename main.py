@@ -2,11 +2,12 @@ import streamlit as st
 from config.settings import PAGE_CONFIG
 from loaders.data_loader import load_all_data_streamlit
 from utils.session import initialize_session_state
+from utils.router import router
 from pages import home, category_detail, item_detail
 
 
 def apply_custom_css():
-    """Apply custom CSS for improved UI."""
+    """Apply custom dark theme CSS for improved UI."""
     st.markdown("""
     <style>
     /* Import Google Fonts */
@@ -15,19 +16,26 @@ def apply_custom_css():
     /* Global Styles */
     .main {
         padding: 0rem 1rem;
+        background-color: #0E1117;
     }
     
-    /* Custom Color Palette - Blue Theme */
+    /* Custom Color Palette - Dark Theme */
     :root {
         --primary-blue: #4A90E2;
-        --secondary-blue: #A8D0FF;
-        --deep-blue: #1E3A5F;
-        --light-blue: #E8F4FD;
-        --accent-blue: #2E86AB;
-        --warm-white: #FEFEFE;
-        --soft-gray: #F8F9FA;
-        --text-dark: #2C3E50;
+        --secondary-blue: #6BA3F5;
+        --deep-blue: #2E5984;
+        --dark-bg: #0E1117;
+        --card-bg: #1E1E1E;
+        --surface-bg: #262730;
+        --accent-blue: #3B82F6;
+        --text-light: #FFFFFF;
+        --text-secondary: #B8BCC8;
+        --text-muted: #8B949E;
+        --border-color: #30363D;
         --success-green: #28A745;
+        --gradient-start: #1E1E1E;
+        --gradient-end: #2A2D3A;
+        --highlight-color: #FFD700;
     }
     
     /* Typography */
@@ -35,11 +43,11 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 3.5rem;
         font-weight: 700;
-        color: var(--deep-blue);
+        color: var(--text-light);
         text-align: center;
         margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        background: linear-gradient(135deg, var(--deep-blue), var(--primary-blue));
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -49,7 +57,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
         font-weight: 600;
-        color: var(--deep-blue);
+        color: var(--text-light);
         text-align: center;
         margin: 2rem 0 3rem 0;
         position: relative;
@@ -69,19 +77,19 @@ def apply_custom_css():
     
     /* Category Cards */
     .category-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         overflow: hidden;
         transition: all 0.3s ease;
-        border: 1px solid rgba(74, 144, 226, 0.2);
+        border: 1px solid var(--border-color);
         margin-bottom: 2rem;
         position: relative;
     }
     
     .category-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.4);
         border-color: var(--primary-blue);
     }
     
@@ -114,13 +122,16 @@ def apply_custom_css():
     
     .card-content {
         padding: 1.5rem;
+        background: var(--card-bg);
+        color: var(--text-light);
+        border-top: 1px solid var(--border-color);
     }
     
     .card-title {
         font-family: 'Playfair Display', serif;
         font-size: 1.4rem;
         font-weight: 600;
-        color: var(--deep-blue);
+        color: var(--text-light);
         margin-bottom: 0.8rem;
         text-align: center;
     }
@@ -128,7 +139,7 @@ def apply_custom_css():
     .card-description {
         font-family: 'Inter', sans-serif;
         font-size: 0.95rem;
-        color: #666;
+        color: var(--text-secondary);
         line-height: 1.6;
         text-align: center;
         margin-bottom: 1.5rem;
@@ -136,18 +147,18 @@ def apply_custom_css():
     
     /* Item Cards */
     .item-card {
-        background: white;
+        background: var(--card-bg);
         border-radius: 15px;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.25);
         overflow: hidden;
         transition: all 0.3s ease;
         margin-bottom: 1.5rem;
-        border: 1px solid rgba(74, 144, 226, 0.1);
+        border: 1px solid var(--border-color);
     }
     
     .item-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.35);
         border-color: var(--primary-blue);
     }
     
@@ -191,14 +202,14 @@ def apply_custom_css():
     
     /* Navigation Buttons */
     .nav-button, div[data-testid="column"]:first-child .stButton > button {
-        background: var(--deep-blue) !important;
-        color: white !important;
+        background: var(--surface-bg) !important;
+        color: var(--text-light) !important;
         border-radius: 20px !important;
         padding: 0.4rem 1rem !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 500 !important;
         font-size: 0.85rem !important;
-        border: none !important;
+        border: 1px solid var(--border-color) !important;
         transition: all 0.3s ease !important;
         margin-bottom: 1rem !important;
         width: auto !important;
@@ -208,40 +219,42 @@ def apply_custom_css():
     .nav-button:hover, div[data-testid="column"]:first-child .stButton > button:hover {
         background: var(--primary-blue) !important;
         transform: translateX(-4px) !important;
+        border-color: var(--primary-blue) !important;
     }
     
     /* Hero Section */
     .hero-section {
-        background: linear-gradient(135deg, var(--light-blue), var(--soft-gray));
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
         padding: 4rem 2rem;
         margin: -1rem -1rem 3rem -1rem;
         text-align: center;
         border-radius: 0 0 30px 30px;
+        border-bottom: 2px solid var(--border-color);
     }
     
     .hero-subtitle {
         font-family: 'Inter', sans-serif;
         font-size: 1.2rem;
-        color: #666;
+        color: var(--text-secondary);
         margin-top: 1rem;
         font-weight: 300;
     }
     
     /* Item Detail Styles */
     .item-detail-container {
-        background: white;
+        background: var(--card-bg);
         border-radius: 20px;
         padding: 2rem;
         margin: 2rem 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-        border: 1px solid rgba(74, 144, 226, 0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        border: 1px solid var(--border-color);
     }
     
     .item-title {
         font-family: 'Playfair Display', serif;
         font-size: 2.8rem;
         font-weight: 700;
-        color: var(--deep-blue);
+        color: var(--text-light);
         text-align: center;
         margin-bottom: 2rem;
         line-height: 1.2;
@@ -251,7 +264,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 1.6rem;
         font-weight: 600;
-        color: var(--deep-blue);
+        color: var(--text-light);
         margin: 2rem 0 1rem 0;
         border-bottom: 2px solid var(--primary-blue);
         padding-bottom: 0.5rem;
@@ -261,7 +274,7 @@ def apply_custom_css():
         font-family: 'Inter', sans-serif;
         font-size: 1rem;
         line-height: 1.7;
-        color: var(--text-dark);
+        color: var(--text-secondary);
         margin-bottom: 1.5rem;
     }
     
@@ -272,13 +285,73 @@ def apply_custom_css():
     
     .gallery-image {
         border-radius: 15px;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.3);
         transition: transform 0.3s ease;
         margin-bottom: 1rem;
     }
     
     .gallery-image:hover {
         transform: scale(1.02);
+    }
+    
+    /* Featured Cards */
+    .featured-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--surface-bg));
+        border: 2px solid var(--highlight-color);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+    
+    .featured-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Compact Navigation Button Styles */
+    .compact-nav-button button {
+        background: var(--surface-bg) !important;
+        color: var(--text-light) !important;
+        border-radius: 12px !important;
+        padding: 0.3rem 0.6rem !important;
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;
+        border: 1px solid var(--border-color) !important;
+        width: auto !important;
+        min-width: 80px !important;
+        max-width: 90px !important;
+        transition: all 0.3s ease !important;
+        margin: 0 !important;
+    }
+    
+    .compact-nav-button button:hover {
+        background: var(--primary-blue) !important;
+        transform: translateX(-1px) !important;
+        border-color: var(--primary-blue) !important;
+    }
+    
+    .compact-nav-button {
+        text-align: left !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Override Streamlit default styles for dark theme */
+    .stSelectbox > div > div {
+        background-color: var(--surface-bg);
+        color: var(--text-light);
+        border-color: var(--border-color);
+    }
+    
+    .stSelectbox > div > div:hover {
+        border-color: var(--primary-blue);
+    }
+    
+    /* Info boxes and containers */
+    div[data-testid="stContainer"] > div {
+        background-color: transparent;
     }
     
     /* Responsive adjustments */
@@ -305,13 +378,13 @@ def apply_custom_css():
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Custom scrollbar */
+    /* Custom scrollbar for dark theme */
     ::-webkit-scrollbar {
         width: 8px;
     }
     
     ::-webkit-scrollbar-track {
-        background: var(--soft-gray);
+        background: var(--dark-bg);
     }
     
     ::-webkit-scrollbar-thumb {
@@ -320,7 +393,7 @@ def apply_custom_css():
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: var(--deep-blue);
+        background: var(--secondary-blue);
     }
     
     /* Loading animation */
@@ -338,10 +411,47 @@ def apply_custom_css():
         to { transform: rotate(360deg); }
     }
     
-    /* Success/Info styling */
+    /* Success/Info styling for dark theme */
     .stAlert {
         border-radius: 15px;
         border-left: 4px solid var(--primary-blue);
+        background-color: var(--card-bg);
+        color: var(--text-light);
+    }
+    
+    /* Additional dark theme improvements */
+    .stExpander {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+    }
+    
+    .stExpander summary {
+        color: var(--text-light);
+    }
+    
+    /* Override any remaining light backgrounds */
+    div[data-testid="column"] > div {
+        background-color: transparent;
+    }
+    
+    /* Statistics cards styling for dark theme */
+    .stats-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+    }
+    
+    .stats-card h3 {
+        color: var(--highlight-color);
+    }
+    
+    .stats-card h4 {
+        color: var(--text-light);
+    }
+    
+    .stats-card p {
+        color: var(--text-secondary);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -368,6 +478,9 @@ def main():
     if app_data is None:
         st.error("Unable to load application data. Please check your data directory.")
         st.stop()
+
+    # Sync session state with URL parameters
+    router.sync_session_from_url(app_data)
 
     # Route to appropriate page based on session state
     if st.session_state.view == "home":

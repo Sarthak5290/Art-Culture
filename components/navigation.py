@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.session import navigate_to_home, back_to_category
+from utils.session import navigate_to_home, back_to_category, navigate_to_category
 
 
 def render_back_to_categories_button():
@@ -7,13 +7,13 @@ def render_back_to_categories_button():
     st.markdown("""
     <style>
     .compact-nav-button button {
-        background: #1E3A5F !important;
-        color: white !important;
+        background: var(--surface-bg) !important;
+        color: var(--text-light) !important;
         border-radius: 12px !important;
         padding: 0.3rem 0.6rem !important;
         font-size: 0.75rem !important;
         font-weight: 500 !important;
-        border: none !important;
+        border: 1px solid var(--border-color) !important;
         width: auto !important;
         min-width: 80px !important;
         max-width: 90px !important;
@@ -22,8 +22,9 @@ def render_back_to_categories_button():
     }
     
     .compact-nav-button button:hover {
-        background: #4A90E2 !important;
+        background: var(--primary-blue) !important;
         transform: translateX(-1px) !important;
+        border-color: var(--primary-blue) !important;
     }
     
     .compact-nav-button {
@@ -44,13 +45,13 @@ def render_back_to_category_button():
     st.markdown("""
     <style>
     .compact-nav-button button {
-        background: #1E3A5F !important;
-        color: white !important;
+        background: var(--surface-bg) !important;
+        color: var(--text-light) !important;
         border-radius: 12px !important;
         padding: 0.3rem 0.6rem !important;
         font-size: 0.75rem !important;
         font-weight: 500 !important;
-        border: none !important;
+        border: 1px solid var(--border-color) !important;
         width: auto !important;
         min-width: 80px !important;
         max-width: 90px !important;
@@ -59,8 +60,9 @@ def render_back_to_category_button():
     }
     
     .compact-nav-button button:hover {
-        background: #4A90E2 !important;
+        background: var(--primary-blue) !important;
         transform: translateX(-1px) !important;
+        border-color: var(--primary-blue) !important;
     }
     
     .compact-nav-button {
@@ -95,8 +97,8 @@ def render_breadcrumb_navigation():
     if len(breadcrumbs) > 1:
         breadcrumb_html = " → ".join(breadcrumbs)
         st.markdown(f"""
-        <div style="background: white; padding: 0.8rem 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #4A90E2; text-align: left; max-width: 400px;">
-            <p style="margin: 0; color: #666; font-size: 0.85rem;">
+        <div style="background: var(--card-bg); padding: 0.8rem 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.25); border-left: 4px solid var(--primary-blue); text-align: left; max-width: 400px; border: 1px solid var(--border-color);">
+            <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem;">
                 {breadcrumb_html}
             </p>
         </div>
@@ -109,13 +111,13 @@ def render_navigation_header():
         st.markdown("""
         <style>
         .compact-home-button button {
-            background: #1E3A5F !important;
-            color: white !important;
+            background: var(--surface-bg) !important;
+            color: var(--text-light) !important;
             border-radius: 12px !important;
             padding: 0.3rem 0.6rem !important;
             font-size: 0.75rem !important;
             font-weight: 500 !important;
-            border: none !important;
+            border: 1px solid var(--border-color) !important;
             width: auto !important;
             min-width: 70px !important;
             max-width: 80px !important;
@@ -124,8 +126,9 @@ def render_navigation_header():
         }
         
         .compact-home-button button:hover {
-            background: #4A90E2 !important;
+            background: var(--primary-blue) !important;
             transform: translateX(-1px) !important;
+            border-color: var(--primary-blue) !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -158,7 +161,6 @@ def render_quick_navigation(app_data):
                            key=f"quick_nav_{cat_id}", 
                            help=f"Go to {cat_name}",
                            disabled=is_current):
-                    from utils.session import navigate_to_category
                     navigate_to_category(cat_id)
 
 
@@ -180,7 +182,7 @@ def render_floating_navigation():
     if st.session_state.view != 'home':
         st.markdown("""
         <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-            <div style="background: #4A90E2; color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease;">
+            <div style="background: var(--primary-blue); color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease;">
                 🏠
             </div>
         </div>
@@ -211,7 +213,6 @@ def render_sidebar_navigation(app_data):
                     use_container_width=True,
                     disabled=is_current
                 ):
-                    from utils.session import navigate_to_category
                     navigate_to_category(cat_id)
         
         # Additional sidebar content

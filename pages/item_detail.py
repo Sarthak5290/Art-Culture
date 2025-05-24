@@ -16,11 +16,11 @@ def render(app_data):
 def render_item_details(selected_item):
     """Render detailed information about an item with enhanced styling."""
     
-    # Item title with hero styling
+    # Item title with hero styling - Updated for dark theme
     item_title = selected_item.get("title", "Untitled Item")
     st.markdown(f"""
     <div class="hero-section" style="margin-bottom: 3rem;">
-        <h1 class="item-title">{item_title}</h1>
+        <h1 class="item-title" style="color: var(--text-light);">{item_title}</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -36,7 +36,7 @@ def render_image_gallery(selected_item):
     images = selected_item.get("images", [])
     
     if images and len(images) > 0:
-        st.markdown('<h3 class="item-section-title">🖼️ Gallery</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 class="item-section-title" style="color: var(--text-light);">🖼️ Gallery</h3>', unsafe_allow_html=True)
         
         # Main image display
         if len(images) == 1:
@@ -86,7 +86,7 @@ def render_image_gallery(selected_item):
                 st.markdown("**All Images:**")
                 for i, image_url in enumerate(images):
                     is_selected = i == st.session_state.selected_image_idx
-                    border_style = "border: 3px solid #D4AF37;" if is_selected else "border: 1px solid #ddd;"
+                    border_style = "border: 3px solid var(--highlight-color);" if is_selected else "border: 1px solid var(--border-color);"
                     
                     st.markdown(f"""
                     <div style="{border_style} border-radius: 8px; overflow: hidden; margin-bottom: 0.5rem; cursor: pointer;">
@@ -141,7 +141,7 @@ def render_content_sections(selected_item):
     # Render list sections in a separate container
     if list_sections:
         st.markdown('<div class="item-detail-container" style="margin-top: 2rem;">', unsafe_allow_html=True)
-        st.markdown('<h3 class="item-section-title">📋 Additional Information</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 class="item-section-title" style="color: var(--text-light);">📋 Additional Information</h3>', unsafe_allow_html=True)
         
         # Create columns for list sections
         list_keys = list(list_sections.keys())
@@ -159,7 +159,7 @@ def render_content_sections(selected_item):
     # Render other sections
     if other_sections:
         st.markdown('<div class="item-detail-container" style="margin-top: 2rem;">', unsafe_allow_html=True)
-        st.markdown('<h3 class="item-section-title">🔍 Detailed Information</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 class="item-section-title" style="color: var(--text-light);">🔍 Detailed Information</h3>', unsafe_allow_html=True)
         
         for key, value in other_sections.items():
             render_content_section(key, value, is_priority=False)
@@ -172,9 +172,9 @@ def render_content_section(key, value, is_priority=False):
     display_title = format_section_title(key)
     
     if is_priority:
-        st.markdown(f'<h4 class="item-section-title" style="font-size: 1.4rem;">✨ {display_title}</h4>', unsafe_allow_html=True)
+        st.markdown(f'<h4 class="item-section-title" style="font-size: 1.4rem; color: var(--text-light);">✨ {display_title}</h4>', unsafe_allow_html=True)
     else:
-        st.markdown(f'<h5 style="color: #1E3A5F; margin: 1.5rem 0 0.8rem 0; font-size: 1.1rem;">📌 {display_title}</h5>', unsafe_allow_html=True)
+        st.markdown(f'<h5 style="color: var(--text-light); margin: 1.5rem 0 0.8rem 0; font-size: 1.1rem;">📌 {display_title}</h5>', unsafe_allow_html=True)
     
     if isinstance(value, dict):
         render_dict_content(value)
@@ -183,9 +183,9 @@ def render_content_section(key, value, is_priority=False):
         if len(content) > 500:
             # For long content, add expandable section
             with st.expander(f"Read full {display_title.lower()}", expanded=is_priority):
-                st.markdown(f'<div class="item-content">{content}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="item-content" style="color: var(--text-secondary);">{content}</div>', unsafe_allow_html=True)
         else:
-            st.markdown(f'<div class="item-content">{content}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="item-content" style="color: var(--text-secondary);">{content}</div>', unsafe_allow_html=True)
 
 
 def render_list_section(key, value_list):
@@ -193,20 +193,20 @@ def render_list_section(key, value_list):
     display_title = format_section_title(key)
     
     st.markdown(f"""
-    <div style="background: #F8F9FA; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid #D4AF37;">
-        <h5 style="color: #1E3A5F; margin: 0 0 1rem 0; font-size: 1.1rem;">📋 {display_title}</h5>
+    <div style="background: var(--surface-bg); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid var(--highlight-color); border: 1px solid var(--border-color);">
+        <h5 style="color: var(--text-light); margin: 0 0 1rem 0; font-size: 1.1rem;">📋 {display_title}</h5>
     """, unsafe_allow_html=True)
     
     if value_list:
         for i, item in enumerate(value_list, 1):
             st.markdown(f"""
-            <div style="margin-bottom: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid #E0E0E0;">
-                <span style="color: #D4AF37; font-weight: 600;">{i}.</span>
-                <span style="color: #444; margin-left: 0.5rem;">{item}</span>
+            <div style="margin-bottom: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">
+                <span style="color: var(--highlight-color); font-weight: 600;">{i}.</span>
+                <span style="color: var(--text-secondary); margin-left: 0.5rem;">{item}</span>
             </div>
             """, unsafe_allow_html=True)
     else:
-        st.markdown('<p style="color: #888; font-style: italic; margin: 0;">No items available.</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color: var(--text-muted); font-style: italic; margin: 0;">No items available.</p>', unsafe_allow_html=True)
     
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -214,15 +214,15 @@ def render_list_section(key, value_list):
 def render_dict_content(dict_value):
     """Render dictionary content in an organized way."""
     st.markdown("""
-    <div style="background: #F8F9FA; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+    <div style="background: var(--surface-bg); padding: 1rem; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
     """, unsafe_allow_html=True)
     
     for sub_key, sub_value in dict_value.items():
         display_key = format_section_title(sub_key)
         st.markdown(f"""
         <div style="margin-bottom: 0.8rem;">
-            <strong style="color: #1E3A5F;">{display_key}:</strong>
-            <span style="color: #444; margin-left: 0.5rem;">{sub_value}</span>
+            <strong style="color: var(--text-light);">{display_key}:</strong>
+            <span style="color: var(--text-secondary); margin-left: 0.5rem;">{sub_value}</span>
         </div>
         """, unsafe_allow_html=True)
     

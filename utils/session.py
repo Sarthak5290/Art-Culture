@@ -1,4 +1,6 @@
 import streamlit as st
+from utils.router import router
+
 
 def initialize_session_state():
     """Initialize session state variables if not already set."""
@@ -9,27 +11,23 @@ def initialize_session_state():
     if 'selected_item' not in st.session_state:
         st.session_state.selected_item = None
 
+
 def navigate_to_home():
     """Navigate to home page and clear selections."""
-    st.session_state.view = 'home'
-    st.session_state.selected_category = None
-    st.session_state.selected_item = None
-    st.rerun()
+    router.navigate_to_home()
+
 
 def navigate_to_category(category_id):
     """Navigate to category detail page."""
-    st.session_state.view = 'category_detail'
-    st.session_state.selected_category = category_id
-    st.rerun()
+    router.navigate_to_category(category_id)
+
 
 def navigate_to_item(item):
     """Navigate to item detail page."""
-    st.session_state.view = 'item_detail'
-    st.session_state.selected_item = item
-    st.rerun()
+    category_id = st.session_state.get('selected_category')
+    router.navigate_to_item(item, category_id)
+
 
 def back_to_category():
     """Navigate back to category detail page."""
-    st.session_state.view = 'category_detail'
-    st.session_state.selected_item = None
-    st.rerun()
+    router.back_to_category()
