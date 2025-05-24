@@ -149,6 +149,7 @@ def apply_custom_css():
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
         margin-bottom: 2rem;
+        margin-top: 3rem;
         position: relative;
     }
     
