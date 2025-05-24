@@ -12,13 +12,13 @@ INITIAL_CATEGORIES = {
     "handicrafts_paintings": {
         "displayTitle": "Handicrafts & Paintings",
         "displayDescription": "Discover the beauty of handicrafts and paintings.",
-        "mainCardImage": "https://rajasthanyatra.in/blog/wp-content/uploads/2024/05/Festivals-of-Rajasthan.webp",
+        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDpuMxPXONfT-EXyKmwvxQ6PNaeRtAGRcm-sy5i-SEBd1vG-t2rDQxsLDpTKJEtxnfvZBbwhnEhGodoPv2_8zOp3f4p19LwvnVlHeRhxTiyH4eWujenXBDTtVRauKcWvhtkPmRT1FzKLET2bys5NYF9yAbMj6rMCBx1AIKMF-h4Opr_iSAvz3jjRuJPUEdS0TgPqc_TdRm-8cuJbTb0wtzuonY5yjhLb89PkBLSAx9QrOvAQbFNgM-STWt3RECnpAHsy9TJF5xzCpo",
         "items": [],
     },
     "performing_arts_festivals": {
         "displayTitle": "Performing Arts & Festivals",
         "displayDescription": "Experience the vibrancy of performing arts and cultural festivals.",
-        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBT1vXNLjkUVsqDjZ_2P11e9jNpcjXOKEfUBourg4kcneojSAoRTLoHUGsGALsquCtr4gwRTdo2f4HeFWf7e0t5Garf34wGjfSjsr3vk_cePSXuJZUUnPD39NXfkU9uo0hFg7IPDvQpoyNkT2Mxn86dqWug2blBZc_XMUbObSZo9_dvprg2zemb6as_U4LsIOTjLyIVELGpPvJnOPTUtQJs-gqamG7cZWxgvrVvDA2LkV-yBu_OfWnVrKHguNzV1PN3ZxvHav6cT4k",
+        "mainCardImage": "https://rajasthanyatra.in/blog/wp-content/uploads/2024/05/Festivals-of-Rajasthan.webp",
         "items": [],
     },
     "artists": {
