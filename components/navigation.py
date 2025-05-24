@@ -35,7 +35,7 @@ def render_back_to_categories_button():
     """, unsafe_allow_html=True)
     
     st.markdown('<div class="compact-nav-button">', unsafe_allow_html=True)
-    if st.button("◀ Categories", key="back_to_categories", help="Return to the main categories page"):
+    if st.button(" Categories", key="back_to_categories", help="Return to the main categories page"):
         navigate_to_home()
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -73,7 +73,7 @@ def render_back_to_category_button():
     """, unsafe_allow_html=True)
     
     st.markdown('<div class="compact-nav-button">', unsafe_allow_html=True)
-    if st.button("◀ Category", key="back_to_category", help="Return to the category overview"):
+    if st.button(" Category", key="back_to_category", help="Return to the category overview"):
         back_to_category()
     st.markdown('</div>', unsafe_allow_html=True)
 

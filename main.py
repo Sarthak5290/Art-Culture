@@ -8,10 +8,55 @@ from pages import home, category_detail, item_detail
 
 def apply_custom_css():
     """Apply custom dark theme CSS for improved UI."""
-    st.markdown("""
+    st.markdown(
+        """
     <style>
     /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+    
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Hide sidebar collapse/expand button */
+    .css-1vbkxwb {display: none;}
+    button[data-testid="collapsedControl"] {display: none;}
+    .css-1rs6os {display: none;}
+    .css-1cypcdb {display: none;}
+    .streamlit-expanderHeader {display: none;}
+    div[data-testid="stSidebarCollapsedControl"] {display: none;}
+    .css-1outpf7 {display: none;}
+    
+        /* Hide Streamlit elements */
+    #MainMenu {display: none;}
+    footer {display: none;}
+    header {display: none;}
+    
+    /* Hide Sidebar Completely */
+    .css-1d391kg {display: none;}
+    .css-1aumxhk {display: none;}
+    section[data-testid="stSidebar"] {display: none;}
+    .css-17eq0hr {display: none;}
+    .css-1cypcdb {display: none;}
+    .css-1544g2n {display: none;}
+    div[data-testid="stSidebarNav"] {display: none;}
+    .css-1lcbmhc {display: none;}
+    .css-1outpf7 {display: none;}
+    
+    /* Adjust main content to full width */
+    .main .block-container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        max-width: none !important;
+        width: 100% !important;
+    }
+    
+    /* Ensure content uses full width */
+    .stApp > div:first-child {
+        margin-left: 0 !important;
+    }
+    
     
     /* Global Styles */
     .main {
@@ -373,11 +418,6 @@ def apply_custom_css():
         }
     }
     
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
     /* Custom scrollbar for dark theme */
     ::-webkit-scrollbar {
         width: 8px;
@@ -454,7 +494,9 @@ def apply_custom_css():
         color: var(--text-secondary);
     }
     </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
 
 def main():
@@ -462,7 +504,7 @@ def main():
     enhanced_config = {
         **PAGE_CONFIG,
         "page_title": "🎨 Art & Culture Explorer",
-        "page_icon": "🎨"
+        "page_icon": "🎨",
     }
     st.set_page_config(**enhanced_config)
 

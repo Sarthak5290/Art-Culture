@@ -16,7 +16,7 @@ def render(app_data):
     render_back_to_categories_button()
 
     if category_info:
-        # Category header with hero styling - Updated for dark theme
+        # Category header with hero styling - Updated for dark theme with moved up positioning
         st.markdown(
             f"""
         <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color);">

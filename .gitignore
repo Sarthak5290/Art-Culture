@@ -254,10 +254,6 @@ temp/
 
 # Application specific
 # Uncomment the lines below if you want to ignore certain data files
-data/
-*.json
-*.csv
-*.xlsx
 
 
 

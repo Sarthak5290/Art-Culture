@@ -23,6 +23,21 @@ class StreamlitRouter:
         st.query_params.clear()
     
     @staticmethod
+    def generate_item_id(item):
+        """Generate a unique ID for an item."""
+        # Try to use existing ID first
+        if 'id' in item and item['id']:
+            return str(item['id'])
+        
+        # Generate from title
+        title = item.get('title', 'untitled')
+        # Clean the title for URL use
+        item_id = title.lower().replace(' ', '_').replace('-', '_')
+        # Remove special characters
+        item_id = ''.join(c for c in item_id if c.isalnum() or c == '_')
+        return item_id
+    
+    @staticmethod
     def navigate_to_home():
         """Navigate to home page."""
         st.query_params.clear()
@@ -46,7 +61,7 @@ class StreamlitRouter:
     @staticmethod
     def navigate_to_item(item, category_id):
         """Navigate to item detail page."""
-        item_id = item.get('id') or item.get('title', '').replace(' ', '_').lower()
+        item_id = StreamlitRouter.generate_item_id(item)
         st.query_params.update({
             "page": "item",
             "category": category_id,
@@ -66,13 +81,15 @@ class StreamlitRouter:
                 "page": "category",
                 "category": category_id
             })
-        st.session_state.view = 'category_detail'
-        st.session_state.selected_item = None
-        st.rerun()
+            st.session_state.view = 'category_detail'
+            st.session_state.selected_item = None
+            st.rerun()
+        else:
+            StreamlitRouter.navigate_to_home()
     
     @staticmethod
     def sync_session_from_url(app_data):
-        """Sync session state from URL parameters."""
+        """Sync session state from URL parameters without triggering navigation."""
         params = st.query_params
         
         # Get URL parameters
@@ -80,7 +97,9 @@ class StreamlitRouter:
         category_id = params.get("category")
         item_id = params.get("item")
         
-        # Set session state based on URL
+        # Set session state based on URL - DO NOT call navigation methods here
+        # to avoid recursion and multiple st.rerun() calls
+        
         if page == "home" or not page:
             st.session_state.view = 'home'
             st.session_state.selected_category = None
@@ -92,8 +111,11 @@ class StreamlitRouter:
                 st.session_state.selected_category = category_id
                 st.session_state.selected_item = None
             else:
-                # Invalid category, redirect to home
-                StreamlitRouter.navigate_to_home()
+                # Invalid category, set to home but don't navigate
+                st.session_state.view = 'home'
+                st.session_state.selected_category = None
+                st.session_state.selected_item = None
+                st.query_params.clear()
                 
         elif page == "item" and category_id and item_id:
             if category_id in app_data:
@@ -102,8 +124,8 @@ class StreamlitRouter:
                 selected_item = None
                 
                 for item in items:
-                    # Match by ID or title
-                    current_item_id = item.get('id') or item.get('title', '').replace(' ', '_').lower()
+                    # Match by generated ID
+                    current_item_id = StreamlitRouter.generate_item_id(item)
                     if current_item_id == item_id:
                         selected_item = item
                         break
@@ -113,14 +135,26 @@ class StreamlitRouter:
                     st.session_state.selected_category = category_id
                     st.session_state.selected_item = selected_item
                 else:
-                    # Item not found, redirect to category
-                    StreamlitRouter.navigate_to_category(category_id)
+                    # Item not found, go to category
+                    st.session_state.view = 'category_detail'
+                    st.session_state.selected_category = category_id
+                    st.session_state.selected_item = None
+                    st.query_params.update({
+                        "page": "category",
+                        "category": category_id
+                    })
             else:
-                # Invalid category, redirect to home
-                StreamlitRouter.navigate_to_home()
+                # Invalid category, go to home
+                st.session_state.view = 'home'
+                st.session_state.selected_category = None
+                st.session_state.selected_item = None
+                st.query_params.clear()
         else:
-            # Invalid page, redirect to home
-            StreamlitRouter.navigate_to_home()
+            # Invalid page, go to home
+            st.session_state.view = 'home'
+            st.session_state.selected_category = None
+            st.session_state.selected_item = None
+            st.query_params.clear()
 
 
 # Create a global router instance
