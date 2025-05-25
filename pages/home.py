@@ -1,5 +1,6 @@
 import streamlit as st
 from components.cards import render_category_card
+from components.chat_bot import render_chat_bot
 
 # Note: Move this `set_page_config` call to the very top of your main script,
 # before any other Streamlit commands or imports that use st.*
@@ -200,3 +201,6 @@ def render(app_data):
         ):
             with cols[j]:
                 render_category_card(category_id, category_info)
+
+    # Render Chat Bot Widget
+    render_chat_bot()
