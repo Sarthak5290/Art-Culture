@@ -3,6 +3,8 @@ from components.navigation import render_back_to_category_button
 from components.image_gallery import render_image_gallery
 from components.content_sections import render_content_sections
 from utils.formatters import format_section_title
+from utils.story_gen import generate_story  # Fixed typo: was 'stroy_gen'
+from components.map_view import render_street_view
 
 
 def ensure_top_scroll():
@@ -63,17 +65,153 @@ def render_no_item_selected():
 
 def render_item_details(selected_item):
     """Render detailed information about an item with enhanced styling."""
-    # Item title at the top with back button
-    render_item_title_with_back_button(selected_item)
+    # Initialize session state variables if they don't exist
+    if "story_loading" not in st.session_state:
+        st.session_state.story_loading = False
+    if "generated_story" not in st.session_state:
+        st.session_state.generated_story = None
+    if "map_loading" not in st.session_state:
+        st.session_state.map_loading = False
+
+    # Item title at the top
+    render_item_title(selected_item)
 
     # Image gallery section
     render_image_gallery(selected_item)
 
+    # --- STORY GENERATION SECTION ---
+    st.markdown('<hr style="margin: 3rem 0;">', unsafe_allow_html=True)
+
+    # Check if selected item has changed and clear previous story/loading state
+    if st.session_state.get("current_item_title") != selected_item.get("title"):
+        st.session_state.generated_story = None
+        st.session_state.story_loading = False
+        st.session_state.current_item_title = selected_item.get("title")
+
+    # Display button or loading/story
+    if not st.session_state.story_loading and st.session_state.generated_story is None:
+        if st.button(
+            "📜 View Historical Significance Story",
+            key="gen_story_btn",
+            use_container_width=True,
+        ):
+            st.session_state.story_loading = True
+            # Story generation is handled in the subsequent block on rerun
+            st.rerun()
+
+    if st.session_state.story_loading:
+        # Colorful AI loading animation with model name
+        model_name = "gemini-2.5-flash-preview-04-17"  # Explicitly use the model name
+        # Define CSS separately
+        loading_css = """
+        <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        </style>
+        """
+        st.markdown(loading_css, unsafe_allow_html=True)
+
+        # Define HTML structure using an f-string to include model_name
+        loading_html = f"""
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 3rem 0; padding: 2rem; background: var(--surface-bg); border-radius: 15px; border: 2px solid var(--primary-color);">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: conic-gradient(from 0deg, #4A90E2, #6FB3E0, #F1F5F9, #FFD700, #FF6F61, #4A90E2); animation: spin 1.5s linear infinite; margin-bottom: 1.5rem;"></div>
+            <p style="color: var(--text-light); font-weight: bold; font-size: 1.3rem; text-align: center;">Gathering historical information and generating story with {model_name}...</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">This may take a moment as AI analyzes historical context and writes.</p>
+        </div>
+        """
+        st.markdown(loading_html, unsafe_allow_html=True)
+        # Trigger the story generation function call immediately in the script rerun
+        # The function call is now outside the button check but inside the loading state check
+        if st.session_state.generated_story is None and st.session_state.get(
+            "current_item_title"
+        ) == selected_item.get("title"):
+            story = generate_story(selected_item.get("title", "Untitled"))
+            st.session_state.generated_story = story
+            st.session_state.story_loading = False
+            st.rerun()  # Rerun one more time to display the story
+
+    # Display the story if it's generated and matches the current item
+    if st.session_state.generated_story is not None and st.session_state.get(
+        "current_item_title"
+    ) == selected_item.get("title"):
+        # Styled story output
+        st.markdown(
+            f"""
+        <div style="
+            background: var(--surface-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid var(--highlight-color);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        ">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.8rem; color: var(--highlight-color);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                <h4 style="margin: 0; font-size: 1.6rem; font-weight: 700; color: var(--text-light);">Historical Significance</h4>
+            </div>
+            <p style="font-size: 0.9em; color: var(--text-muted); margin-top: -1.5rem; margin-bottom: 1.5rem;">Generated by AI</p>
+            <div style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap; overflow-wrap: break-word;">
+                {st.session_state.generated_story}
+            </div>
+        </div>
+        """,
+            unsafe_allow_html=True,
+        )
+
+    # Street View section for architecture items
+    category_id = st.session_state.get("selected_category")
+    if category_id == "sculptures_architecture":
+        location = selected_item.get("location") or selected_item.get("title")
+        if location:
+            st.markdown('<hr style="margin: 2rem 0;">', unsafe_allow_html=True)
+
+            # Check if selected item has changed and clear previous map state
+            if st.session_state.get("current_item_title") != selected_item.get("title"):
+                st.session_state.map_loading = False
+                st.session_state.current_item_title = selected_item.get("title")
+
+            # Display map section
+            st.markdown("### 🗺️ Street View")
+
+            # Show loading state or map
+            if st.session_state.map_loading:
+                st.markdown(
+                    """
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 2rem 0;
+                    padding: 2rem;
+                    background: var(--surface-bg);
+                    border-radius: 15px;
+                    border: 2px solid var(--primary-color);
+                ">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(from 0deg, #4A90E2, #6FB3E0, #F1F5F9, #FFD700, #FF6F61, #4A90E2); animation: spin 1.5s linear infinite; margin-bottom: 1rem;"></div>
+                    <p style="color: var(--text-light); font-weight: bold; text-align: center;">Loading street view...</p>
+                </div>
+                """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                render_street_view(location)
+
     # Main content sections
     render_content_sections(selected_item)
 
+    # Quick Stats section
+    render_quick_stats(selected_item)
+
     # Additional metadata if available
     render_metadata_section(selected_item)
+
+    # Related Items section
+    render_related_items_section()
+
+    # Item Actions buttons
+    render_item_actions()
+
+    # Accessibility Info
+    render_accessibility_info()
 
 
 def render_item_title_with_back_button(selected_item):
@@ -167,32 +305,49 @@ def render_item_title_with_back_button(selected_item):
 
 
 def render_item_title(selected_item):
-    """Render the item title with enhanced styling (original version - kept for compatibility)."""
+    """Render the item title with enhanced styling and background image."""
     title = selected_item.get("title", "Untitled Item")
 
     st.markdown(
         f"""
-    <div style="
-        text-align: center;
-        padding: 2rem 1rem;
-        margin: -1rem -1rem 2rem -1rem;
-        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-        border-radius: 0 0 25px 25px;
-        border-bottom: 2px solid var(--border-color);
-    ">
+<style>
+.background-overlay {{
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 0 0 25px 25px;
+}}
+</style>
+
+<div style="
+    background: url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: -1rem -1rem 2rem -1rem;
+    border-radius: 0 0 25px 25px;
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    position: relative;
+">
+    <div class="background-overlay"></div>
+    <div style="position: relative; z-index: 1;">
         <h1 class="item-title" style="
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-light);
+            color: white;
             margin: 0;
             line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         ">
             {title}
         </h1>
     </div>
-    """,
+</div>
+""",
         unsafe_allow_html=True,
     )
 

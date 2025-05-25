@@ -46,6 +46,7 @@ def inject_styles():
             height: 60vh;
             border-radius: 15px;
             margin-bottom: 2rem;
+            margin-top: 2rem;
             color: white;
             display: flex;
             align-items: center;
