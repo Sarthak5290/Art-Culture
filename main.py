@@ -7,13 +7,18 @@ from pages import home, category_detail, item_detail
 
 
 def apply_custom_css():
-    """Apply custom light-blue theme CSS for improved UI."""
+    """Apply custom light-blue theme CSS for improved UI with Poppins fonts."""
     st.markdown(
         """
     <style>
-    /* Import Google Fonts */
+    /* Import Google Fonts and Adobe Fonts (Typekit) */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+    </style>
     
+    <!-- Adobe Fonts (Typekit) for Poppins -->
+    <link rel="stylesheet" href="https://use.typekit.net/jre8nsm.css">
+    
+    <style>
     /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
@@ -28,7 +33,7 @@ def apply_custom_css():
     div[data-testid="stSidebarCollapsedControl"] {display: none;}
     .css-1outpf7 {display: none;}
     
-        /* Hide Streamlit elements */
+    /* Hide Streamlit elements */
     #MainMenu {display: none;}
     footer {display: none;}
     header {display: none;}
@@ -85,6 +90,9 @@ def apply_custom_css():
     
     body {
         overflow-x: hidden;
+        font-family: "poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
     }
     
     /* Global Styles - Light Blue Theme */
@@ -92,6 +100,7 @@ def apply_custom_css():
         padding: 0rem 1rem;
         background-color: #F0F8FF;
         margin-top: 0 !important;
+        font-family: "poppins", sans-serif;
     }
     
     /* Custom Color Palette - Light Blue Theme */
@@ -115,11 +124,17 @@ def apply_custom_css():
         --shadow-light: rgba(30, 136, 229, 0.1);
         --shadow-medium: rgba(30, 136, 229, 0.2);
         --shadow-strong: rgba(30, 136, 229, 0.3);
+        
+        /* Font Family Variables */
+        --font-primary: "poppins", sans-serif;
+        --font-display: 'Playfair Display', serif;
+        --font-body: "poppins", sans-serif;
+        --font-ui: "poppins", sans-serif;
     }
     
-    /* Typography */
+    /* Typography with Poppins Integration */
     .main-title {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-display);
         font-size: 3.5rem;
         font-weight: 700;
         color: var(--text-dark);
@@ -133,7 +148,7 @@ def apply_custom_css():
     }
     
     .section-title {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-display);
         font-size: 2.5rem;
         font-weight: 600;
         color: var(--text-dark);
@@ -152,6 +167,31 @@ def apply_custom_css():
         height: 3px;
         background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
         border-radius: 2px;
+    }
+    
+    /* Poppins Typography Classes */
+    .poppins-regular {
+        font-family: "poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+    .poppins-italic {
+        font-family: "poppins", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+    
+    .poppins-bold {
+        font-family: "poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    
+    .poppins-bold-italic {
+        font-family: "poppins", sans-serif;
+        font-weight: 700;
+        font-style: italic;
     }
     
     /* Category Cards */
@@ -208,7 +248,7 @@ def apply_custom_css():
     }
     
     .card-title {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-display);
         font-size: 1.4rem;
         font-weight: 600;
         color: var(--text-dark);
@@ -217,12 +257,13 @@ def apply_custom_css():
     }
     
     .card-description {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-primary);
         font-size: 0.95rem;
         color: var(--text-secondary);
         line-height: 1.6;
         text-align: center;
         margin-bottom: 1.5rem;
+        font-weight: 400;
     }
     
     /* Item Cards */
@@ -259,14 +300,14 @@ def apply_custom_css():
         transform: scale(1.03);
     }
     
-    /* Custom Buttons */
+    /* Custom Buttons with Poppins */
     .stButton > button {
         background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
         color: white;
         border: none;
         border-radius: 25px;
         padding: 0.7rem 2rem;
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-primary);
         font-weight: 500;
         font-size: 0.95rem;
         transition: all 0.3s ease;
@@ -286,7 +327,7 @@ def apply_custom_css():
         color: var(--text-primary) !important;
         border-radius: 20px !important;
         padding: 0.4rem 1rem !important;
-        font-family: 'Inter', sans-serif !important;
+        font-family: var(--font-primary) !important;
         font-weight: 500 !important;
         font-size: 0.85rem !important;
         border: 1px solid var(--border-color) !important;
@@ -315,10 +356,11 @@ def apply_custom_css():
     }
     
     .hero-subtitle {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-primary);
         font-size: 1.2rem;
         margin-top: 1rem;
-        font-weight: 300;
+        font-weight: 400;
+        color: white;
     }
     
     /* Item Detail Styles */
@@ -332,7 +374,7 @@ def apply_custom_css():
     }
     
     .item-title {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-display);
         font-size: 2.8rem;
         font-weight: 700;
         color: var(--text-dark);
@@ -342,7 +384,7 @@ def apply_custom_css():
     }
     
     .item-section-title {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-display);
         font-size: 1.6rem;
         font-weight: 600;
         color: var(--text-dark);
@@ -352,11 +394,12 @@ def apply_custom_css():
     }
     
     .item-content {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-primary);
         font-size: 1rem;
         line-height: 1.7;
         color: var(--text-secondary);
         margin-bottom: 1.5rem;
+        font-weight: 400;
     }
     
     /* Image Gallery */
@@ -398,6 +441,7 @@ def apply_custom_css():
         color: var(--text-primary) !important;
         border-radius: 12px !important;
         padding: 0.3rem 0.6rem !important;
+        font-family: var(--font-primary) !important;
         font-size: 0.75rem !important;
         font-weight: 500 !important;
         border: 1px solid var(--border-color) !important;
@@ -425,6 +469,7 @@ def apply_custom_css():
         background-color: var(--card-bg);
         color: var(--text-dark);
         border-color: var(--border-color);
+        font-family: var(--font-primary);
     }
     
     .stSelectbox > div > div:hover {
@@ -434,6 +479,38 @@ def apply_custom_css():
     /* Info boxes and containers */
     div[data-testid="stContainer"] > div {
         background-color: transparent;
+    }
+    
+    /* All text elements use Poppins by default */
+    .stMarkdown, .stText, p, div, span, h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-primary);
+    }
+    
+    /* Specific heading overrides for display font */
+    h1, .stMarkdown h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+    }
+    
+    h2, .stMarkdown h2 {
+        font-family: var(--font-display);
+        font-weight: 600;
+    }
+    
+    h3, .stMarkdown h3 {
+        font-family: var(--font-primary);
+        font-weight: 700;
+    }
+    
+    h4, h5, h6, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        font-family: var(--font-primary);
+        font-weight: 600;
+    }
+    
+    /* Body text and paragraphs */
+    p, .stMarkdown p, div, span, li {
+        font-family: var(--font-primary);
+        font-weight: 400;
     }
     
     /* Responsive adjustments */
@@ -494,6 +571,7 @@ def apply_custom_css():
         border-left: 4px solid var(--primary-blue);
         background-color: var(--surface-bg);
         color: var(--text-dark);
+        font-family: var(--font-primary);
     }
     
     /* Additional light theme improvements */
@@ -505,6 +583,8 @@ def apply_custom_css():
     
     .stExpander summary {
         color: var(--text-dark);
+        font-family: var(--font-primary);
+        font-weight: 600;
     }
     
     /* Override any remaining backgrounds */
@@ -518,23 +598,31 @@ def apply_custom_css():
         border: 1px solid var(--border-color);
         color: var(--text-dark);
         box-shadow: 0 4px 16px var(--shadow-light);
+        font-family: var(--font-primary);
     }
     
     .stats-card h3 {
         color: var(--highlight-color);
+        font-family: var(--font-primary);
+        font-weight: 700;
     }
     
     .stats-card h4 {
         color: var(--text-dark);
+        font-family: var(--font-primary);
+        font-weight: 600;
     }
     
     .stats-card p {
         color: var(--text-secondary);
+        font-family: var(--font-primary);
+        font-weight: 400;
     }
     
     /* Light theme specific adjustments */
     .stApp {
         background-color: var(--light-bg);
+        font-family: var(--font-primary);
     }
     
     /* Text inputs and form elements */
@@ -542,6 +630,7 @@ def apply_custom_css():
         background-color: var(--card-bg);
         color: var(--text-dark);
         border-color: var(--border-color);
+        font-family: var(--font-primary);
     }
     
     .stTextInput > div > div > input:focus {
@@ -554,6 +643,7 @@ def apply_custom_css():
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 10px;
+        font-family: var(--font-primary);
     }
     
     /* Warning and error messages */
@@ -561,24 +651,28 @@ def apply_custom_css():
         background-color: rgba(255, 193, 7, 0.1);
         color: #856404;
         border-left: 4px solid #ffc107;
+        font-family: var(--font-primary);
     }
     
     .stError {
         background-color: rgba(220, 53, 69, 0.1);
         color: #721c24;
         border-left: 4px solid #dc3545;
+        font-family: var(--font-primary);
     }
     
     .stSuccess {
         background-color: rgba(40, 167, 69, 0.1);
         color: #155724;
         border-left: 4px solid #28a745;
+        font-family: var(--font-primary);
     }
     
     .stInfo {
         background-color: rgba(30, 136, 229, 0.1);
         color: var(--text-primary);
         border-left: 4px solid var(--primary-blue);
+        font-family: var(--font-primary);
     }
     
     /* Enhanced visual hierarchy with light blue gradients */
@@ -595,6 +689,8 @@ def apply_custom_css():
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        font-family: var(--font-primary);
+        font-weight: 700;
     }
     
     /* Hover effects for better interactivity */
@@ -605,6 +701,31 @@ def apply_custom_css():
     .hover-lift:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px var(--shadow-medium);
+    }
+    
+    /* Utility classes for Poppins font variants */
+    .text-regular {
+        font-family: "poppins", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+    .text-italic {
+        font-family: "poppins", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+    
+    .text-bold {
+        font-family: "poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    
+    .text-bold-italic {
+        font-family: "poppins", sans-serif;
+        font-weight: 700;
+        font-style: italic;
     }
     </style>
     """,
