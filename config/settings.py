@@ -12,7 +12,7 @@ INITIAL_CATEGORIES = {
     "handicrafts_paintings": {
         "displayTitle": "Handicrafts & Paintings",
         "displayDescription": "Discover the beauty of handicrafts and paintings.",
-        "mainCardImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDpuMxPXONfT-EXyKmwvxQ6PNaeRtAGRcm-sy5i-SEBd1vG-t2rDQxsLDpTKJEtxnfvZBbwhnEhGodoPv2_8zOp3f4p19LwvnVlHeRhxTiyH4eWujenXBDTtVRauKcWvhtkPmRT1FzKLET2bys5NYF9yAbMj6rMCBx1AIKMF-h4Opr_iSAvz3jjRuJPUEdS0TgPqc_TdRm-8cuJbTb0wtzuonY5yjhLb89PkBLSAx9QrOvAQbFNgM-STWt3RECnpAHsy9TJF5xzCpo",
+        "mainCardImage": "https://en-media.thebetterindia.com/uploads/2016/06/Untitled-design-7.jpg",
         "items": [],
     },
     "performing_arts_festivals": {
@@ -24,7 +24,7 @@ INITIAL_CATEGORIES = {
     "artists": {
         "displayTitle": "Artists",
         "displayDescription": "Learn about the lives and works of famous artists.",
-        "mainCardImage": "https://t3.ftcdn.net/jpg/01/79/46/68/240_F_179466839_nARiMdo6ocQWnw6X5YyecerwSYnAVb88.jpg",
+        "mainCardImage": "https://static.standard.co.uk/s3fs-public/thumbnails/image/2019/03/05/11/sei26139543-1-0.jpg?quality=100&auto=webp&width=960",
         "items": [],
     },
 }
