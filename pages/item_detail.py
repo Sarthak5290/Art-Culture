@@ -5,7 +5,30 @@ from components.content_sections import render_content_sections
 from utils.formatters import format_section_title
 
 
+def ensure_top_scroll():
+    """Ensure the page scrolls to top when loaded."""
+    st.markdown(
+        """
+    <script>
+        // Immediate scroll to top
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Backup methods
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 100);
+    </script>
+    """,
+        unsafe_allow_html=True,
+    )
+
+
 def render(app_data):
+    ensure_top_scroll()
     """Render the enhanced item detail page."""
     selected_item = st.session_state.selected_item
 
@@ -40,8 +63,8 @@ def render_no_item_selected():
 
 def render_item_details(selected_item):
     """Render detailed information about an item with enhanced styling."""
-    # Item title at the top
-    render_item_title(selected_item)
+    # Item title at the top with back button
+    render_item_title_with_back_button(selected_item)
 
     # Image gallery section
     render_image_gallery(selected_item)
@@ -53,8 +76,83 @@ def render_item_details(selected_item):
     render_metadata_section(selected_item)
 
 
+def render_item_title_with_back_button(selected_item):
+    """Render the item title with enhanced styling and back button."""
+    title = selected_item.get("title", "Untitled Item")
+
+    # Header with title
+    st.markdown(
+        f"""
+    <div style="
+        text-align: center;
+        padding: 2rem 1rem;
+        margin: -1rem -1rem 2rem -1rem;
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        border-radius: 0 0 25px 25px;
+        border-bottom: 2px solid var(--border-color);
+        box-shadow: 0 4px 20px var(--shadow-light);
+        position: relative;
+    ">
+        <h1 class="item-title" style="
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        ">
+            {title}
+        </h1>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
+
+    # Back button positioned after the header
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col1:
+        st.markdown(
+            """
+        <style>
+        .small-back-btn button {
+            position: absolute !important;
+            left: 25px !important;
+            top: 25px !important;
+            background: var(--primary-blue) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 50% !important;
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 1.2rem !important;
+            font-weight: bold !important;
+            margin-top: -30px !important;
+            margin-bottom: 1rem !important;
+            box-shadow: 0 4px 12px var(--shadow-medium) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .small-back-btn button:hover {
+            background: var(--secondary-blue) !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 6px 16px var(--shadow-strong) !important;
+        }
+        </style>
+        """,
+            unsafe_allow_html=True,
+        )
+
+        st.markdown('<div class="small-back-btn">', unsafe_allow_html=True)
+        if st.button("←", key="back_arrow_item", help="Go back to category"):
+            from utils.session import back_to_category
+
+            back_to_category()
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
 def render_item_title(selected_item):
-    """Render the item title with enhanced styling."""
+    """Render the item title with enhanced styling (original version - kept for compatibility)."""
     title = selected_item.get("title", "Untitled Item")
 
     st.markdown(

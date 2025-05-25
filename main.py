@@ -46,8 +46,9 @@ def apply_custom_css():
     
     /* Remove top spacing and adjust main content to full width */
     .stApp {
-        margin-top: -100px !important;
+        margin-top: -205px !important;
         padding-top: 0 !important;
+        scroll-behavior: smooth !important;
     }
     
     .main .block-container {
@@ -75,6 +76,15 @@ def apply_custom_css():
     div[data-testid="stMain"] {
         padding-top: 0 !important;
         margin-top: 0 !important;
+    }
+    
+    /* Force scroll position */
+    html {
+        scroll-behavior: auto !important;
+    }
+    
+    body {
+        overflow-x: hidden;
     }
     
     /* Global Styles - Light Blue Theme */
@@ -307,7 +317,6 @@ def apply_custom_css():
     .hero-subtitle {
         font-family: 'Inter', sans-serif;
         font-size: 1.2rem;
-        color: var(--text-secondary);
         margin-top: 1rem;
         font-weight: 300;
     }
@@ -617,6 +626,17 @@ def main():
 
     # Initialize session state
     initialize_session_state()
+
+    # Apply scroll fix and page positioning
+    from utils.session import (
+        inject_scroll_fix_css,
+        add_page_transition_effect,
+        enhanced_scroll_to_top,
+    )
+
+    inject_scroll_fix_css()
+    add_page_transition_effect()
+    enhanced_scroll_to_top()
 
     # Load data
     app_data = load_all_data_streamlit()

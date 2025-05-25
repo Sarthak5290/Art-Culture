@@ -7,16 +7,40 @@ from components.cards import (
 )
 
 
+def ensure_top_scroll():
+    """Ensure the page scrolls to top when loaded."""
+    st.markdown(
+        """
+    <script>
+        // Immediate scroll to top
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Backup methods
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }, 100);
+    </script>
+    """,
+        unsafe_allow_html=True,
+    )
+
+
 def render(app_data):
+    ensure_top_scroll()
+
     """Render the enhanced category detail page with improved layout."""
     selected_category_id = st.session_state.selected_category
     category_info = app_data.get(selected_category_id)
 
     if category_info:
-        # Category header with hero styling - Updated for light-blue theme
+        # Category header with hero styling and embedded back arrow
         st.markdown(
             f"""
-        <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color); box-shadow: 0 4px 20px var(--shadow-light);">
+        <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color); box-shadow: 0 4px 20px var(--shadow-light); position: relative;">
             <h1 class="section-title" style="margin: 0; font-size: 2.8rem; color: var(--text-dark);">{category_info['displayTitle']}</h1>
             <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 1rem; font-style: italic;">
                 {category_info['displayDescription']}
@@ -25,6 +49,48 @@ def render(app_data):
         """,
             unsafe_allow_html=True,
         )
+
+        # Small back arrow button placed after the header
+        col1, col2, col3 = st.columns([1, 6, 1])
+        with col1:
+            st.markdown(
+                """
+            <style>
+            .small-back-btn button {
+    position: absolute !important;
+    left: 25px !important;
+    top: 25px !important;
+    background: var(--primary-blue) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    margin-top: -30px !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 4px 12px var(--shadow-medium) !important;
+    transition: all 0.3s ease !important;
+}
+
+            
+            .small-back-btn button:hover {
+                background: var(--secondary-blue) !important;
+                transform: scale(1.1) !important;
+                box-shadow: 0 6px 16px var(--shadow-strong) !important;
+            }
+            </style>
+            """,
+                unsafe_allow_html=True,
+            )
+
+            st.markdown('<div class="small-back-btn">', unsafe_allow_html=True)
+            if st.button("←", key="back_arrow", help="Go back to categories"):
+                from utils.session import navigate_to_home
+
+                navigate_to_home()
+            st.markdown("</div>", unsafe_allow_html=True)
 
         items = category_info.get("items", [])
 
