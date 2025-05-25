@@ -40,13 +40,52 @@ def render(app_data):
         # Category header with hero styling and embedded back arrow
         st.markdown(
             f"""
-        <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color); box-shadow: 0 4px 20px var(--shadow-light); position: relative;">
-            <h1 class="section-title" style="margin: 0; font-size: 2.8rem; color: var(--text-dark);">{category_info['displayTitle']}</h1>
-            <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 1rem; font-style: italic;">
-                {category_info['displayDescription']}
-            </p>
-        </div>
-        """,
+<style>
+.background-overlay {{
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 0 0 25px 25px;
+}}
+</style>
+
+<div style="
+    background: url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2.5rem 2rem; 
+    margin: -1rem -1rem 2rem -1rem; 
+    border-radius: 0 0 25px 25px; 
+    text-align: center; 
+    border-bottom: 2px solid var(--border-color); 
+    box-shadow: 0 4px 20px var(--shadow-light); 
+    position: relative;
+">
+    <div class="background-overlay"></div>
+    <div style="position: relative; z-index: 1;">
+        <h1 class="section-title" style="
+            margin: 0; 
+            font-size: 2.8rem; 
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            font-weight: 700;
+        ">
+            {category_info['displayTitle']}
+        </h1>
+        <p style="
+            font-size: 1.1rem; 
+            color: rgba(255, 255, 255, 0.9); 
+            margin-top: 1rem; 
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-weight: 400;
+        ">
+            {category_info['displayDescription']}
+        </p>
+    </div>
+</div>
+""",
             unsafe_allow_html=True,
         )
 

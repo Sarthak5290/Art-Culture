@@ -83,29 +83,44 @@ def render_item_title_with_back_button(selected_item):
     # Header with title
     st.markdown(
         f"""
-    <div style="
-        text-align: center;
-        padding: 2rem 1rem;
-        margin: -1rem -1rem 2rem -1rem;
-        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-        border-radius: 0 0 25px 25px;
-        border-bottom: 2px solid var(--border-color);
-        box-shadow: 0 4px 20px var(--shadow-light);
-        position: relative;
-    ">
+<style>
+.background-overlay {{
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 0 0 25px 25px;
+}}
+</style>
+
+<div style="
+    background: url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin: -1rem -1rem 2rem -1rem;
+    border-radius: 0 0 25px 25px;
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 4px 20px var(--shadow-light);
+    position: relative;
+">
+    <div class="background-overlay"></div>
+    <div style="position: relative; z-index: 1;">
         <h1 class="item-title" style="
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-light);
+            color: white;
             margin: 0;
             line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         ">
             {title}
         </h1>
     </div>
-    """,
+</div>
+""",
         unsafe_allow_html=True,
     )
 
