@@ -7,7 +7,7 @@ from pages import home, category_detail, item_detail
 
 
 def apply_custom_css():
-    """Apply custom dark theme CSS for improved UI."""
+    """Apply custom light-blue theme CSS for improved UI."""
     st.markdown(
         """
     <style>
@@ -77,30 +77,34 @@ def apply_custom_css():
         margin-top: 0 !important;
     }
     
-    /* Global Styles */
+    /* Global Styles - Light Blue Theme */
     .main {
         padding: 0rem 1rem;
-        background-color: #0E1117;
+        background-color: #F0F8FF;
         margin-top: 0 !important;
     }
     
-    /* Custom Color Palette - Dark Theme */
+    /* Custom Color Palette - Light Blue Theme */
     :root {
-        --primary-blue: #4A90E2;
-        --secondary-blue: #6BA3F5;
-        --deep-blue: #2E5984;
-        --dark-bg: #0E1117;
-        --card-bg: #1E1E1E;
-        --surface-bg: #262730;
-        --accent-blue: #3B82F6;
-        --text-light: #FFFFFF;
-        --text-secondary: #B8BCC8;
-        --text-muted: #8B949E;
-        --border-color: #30363D;
-        --success-green: #28A745;
-        --gradient-start: #1E1E1E;
-        --gradient-end: #2A2D3A;
-        --highlight-color: #FFD700;
+        --primary-blue: #1E88E5;
+        --secondary-blue: #42A5F5;
+        --deep-blue: #1565C0;
+        --light-bg: #F0F8FF;
+        --card-bg: #FFFFFF;
+        --surface-bg: #E3F2FD;
+        --accent-blue: #2196F3;
+        --text-dark: #1A237E;
+        --text-primary: #0D47A1;
+        --text-secondary: #1976D2;
+        --text-muted: #5C6BC0;
+        --border-color: #BBDEFB;
+        --success-green: #4CAF50;
+        --gradient-start: #E3F2FD;
+        --gradient-end: #BBDEFB;
+        --highlight-color: #FF9800;
+        --shadow-light: rgba(30, 136, 229, 0.1);
+        --shadow-medium: rgba(30, 136, 229, 0.2);
+        --shadow-strong: rgba(30, 136, 229, 0.3);
     }
     
     /* Typography */
@@ -108,10 +112,10 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 3.5rem;
         font-weight: 700;
-        color: var(--text-light);
+        color: var(--text-dark);
         text-align: center;
         margin-bottom: 0.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        text-shadow: 2px 2px 4px rgba(30, 136, 229, 0.1);
         background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -122,7 +126,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
         font-weight: 600;
-        color: var(--text-light);
+        color: var(--text-dark);
         text-align: center;
         margin: 2rem 0 3rem 0;
         position: relative;
@@ -144,7 +148,7 @@ def apply_custom_css():
     .category-card {
         background: var(--card-bg);
         border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        box-shadow: 0 8px 32px var(--shadow-light);
         overflow: hidden;
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
@@ -155,7 +159,7 @@ def apply_custom_css():
     
     .category-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+        box-shadow: 0 16px 48px var(--shadow-medium);
         border-color: var(--primary-blue);
     }
     
@@ -189,7 +193,7 @@ def apply_custom_css():
     .card-content {
         padding: 1.5rem;
         background: var(--card-bg);
-        color: var(--text-light);
+        color: var(--text-dark);
         border-top: 1px solid var(--border-color);
     }
     
@@ -197,7 +201,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 1.4rem;
         font-weight: 600;
-        color: var(--text-light);
+        color: var(--text-dark);
         margin-bottom: 0.8rem;
         text-align: center;
     }
@@ -215,7 +219,7 @@ def apply_custom_css():
     .item-card {
         background: var(--card-bg);
         border-radius: 15px;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+        box-shadow: 0 6px 24px var(--shadow-light);
         overflow: hidden;
         transition: all 0.3s ease;
         margin-bottom: 1.5rem;
@@ -224,7 +228,7 @@ def apply_custom_css():
     
     .item-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+        box-shadow: 0 12px 32px var(--shadow-medium);
         border-color: var(--primary-blue);
     }
     
@@ -256,20 +260,20 @@ def apply_custom_css():
         font-weight: 500;
         font-size: 0.95rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(74, 144, 226, 0.3);
+        box-shadow: 0 4px 16px var(--shadow-light);
         width: 100%;
     }
     
     .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        box-shadow: 0 6px 20px var(--shadow-medium);
         background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
     }
     
     /* Navigation Buttons */
     .nav-button, div[data-testid="column"]:first-child .stButton > button {
         background: var(--surface-bg) !important;
-        color: var(--text-light) !important;
+        color: var(--text-primary) !important;
         border-radius: 20px !important;
         padding: 0.4rem 1rem !important;
         font-family: 'Inter', sans-serif !important;
@@ -284,11 +288,12 @@ def apply_custom_css():
     
     .nav-button:hover, div[data-testid="column"]:first-child .stButton > button:hover {
         background: var(--primary-blue) !important;
+        color: white !important;
         transform: translateX(-4px) !important;
         border-color: var(--primary-blue) !important;
     }
     
-    /* Hero Section - Updated to start from very top */
+    /* Hero Section - Updated for light theme */
     .hero-section {
         background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
         padding: 4rem 2rem;
@@ -313,7 +318,7 @@ def apply_custom_css():
         border-radius: 20px;
         padding: 2rem;
         margin: 2rem 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        box-shadow: 0 8px 32px var(--shadow-light);
         border: 1px solid var(--border-color);
     }
     
@@ -321,7 +326,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 2.8rem;
         font-weight: 700;
-        color: var(--text-light);
+        color: var(--text-dark);
         text-align: center;
         margin-bottom: 2rem;
         line-height: 1.2;
@@ -331,7 +336,7 @@ def apply_custom_css():
         font-family: 'Playfair Display', serif;
         font-size: 1.6rem;
         font-weight: 600;
-        color: var(--text-light);
+        color: var(--text-dark);
         margin: 2rem 0 1rem 0;
         border-bottom: 2px solid var(--primary-blue);
         padding-bottom: 0.5rem;
@@ -352,7 +357,7 @@ def apply_custom_css():
     
     .gallery-image {
         border-radius: 15px;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+        box-shadow: 0 6px 24px var(--shadow-light);
         transition: transform 0.3s ease;
         margin-bottom: 1rem;
     }
@@ -366,7 +371,7 @@ def apply_custom_css():
         background: linear-gradient(135deg, var(--card-bg), var(--surface-bg));
         border: 2px solid var(--highlight-color);
         border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+        box-shadow: 0 8px 32px rgba(255, 152, 0, 0.2);
         overflow: hidden;
         transition: all 0.3s ease;
         margin-bottom: 2rem;
@@ -375,13 +380,13 @@ def apply_custom_css():
     
     .featured-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 16px 48px rgba(255, 215, 0, 0.3);
+        box-shadow: 0 16px 48px rgba(255, 152, 0, 0.3);
     }
     
     /* Compact Navigation Button Styles */
     .compact-nav-button button {
         background: var(--surface-bg) !important;
-        color: var(--text-light) !important;
+        color: var(--text-primary) !important;
         border-radius: 12px !important;
         padding: 0.3rem 0.6rem !important;
         font-size: 0.75rem !important;
@@ -396,6 +401,7 @@ def apply_custom_css():
     
     .compact-nav-button button:hover {
         background: var(--primary-blue) !important;
+        color: white !important;
         transform: translateX(-1px) !important;
         border-color: var(--primary-blue) !important;
     }
@@ -405,10 +411,10 @@ def apply_custom_css():
         margin-bottom: 1rem !important;
     }
     
-    /* Override Streamlit default styles for dark theme */
+    /* Override Streamlit default styles for light theme */
     .stSelectbox > div > div {
-        background-color: var(--surface-bg);
-        color: var(--text-light);
+        background-color: var(--card-bg);
+        color: var(--text-dark);
         border-color: var(--border-color);
     }
     
@@ -440,13 +446,13 @@ def apply_custom_css():
         }
     }
     
-    /* Custom scrollbar for dark theme */
+    /* Custom scrollbar for light theme */
     ::-webkit-scrollbar {
         width: 8px;
     }
     
     ::-webkit-scrollbar-track {
-        background: var(--dark-bg);
+        background: var(--light-bg);
     }
     
     ::-webkit-scrollbar-thumb {
@@ -463,7 +469,7 @@ def apply_custom_css():
         display: inline-block;
         width: 20px;
         height: 20px;
-        border: 3px solid rgba(74, 144, 226, 0.3);
+        border: 3px solid rgba(30, 136, 229, 0.3);
         border-radius: 50%;
         border-top-color: var(--primary-blue);
         animation: spin 1s ease-in-out infinite;
@@ -473,15 +479,15 @@ def apply_custom_css():
         to { transform: rotate(360deg); }
     }
     
-    /* Success/Info styling for dark theme */
+    /* Success/Info styling for light theme */
     .stAlert {
         border-radius: 15px;
         border-left: 4px solid var(--primary-blue);
-        background-color: var(--card-bg);
-        color: var(--text-light);
+        background-color: var(--surface-bg);
+        color: var(--text-dark);
     }
     
-    /* Additional dark theme improvements */
+    /* Additional light theme improvements */
     .stExpander {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -489,19 +495,20 @@ def apply_custom_css():
     }
     
     .stExpander summary {
-        color: var(--text-light);
+        color: var(--text-dark);
     }
     
-    /* Override any remaining light backgrounds */
+    /* Override any remaining backgrounds */
     div[data-testid="column"] > div {
         background-color: transparent;
     }
     
-    /* Statistics cards styling for dark theme */
+    /* Statistics cards styling for light theme */
     .stats-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
-        color: var(--text-light);
+        color: var(--text-dark);
+        box-shadow: 0 4px 16px var(--shadow-light);
     }
     
     .stats-card h3 {
@@ -509,11 +516,86 @@ def apply_custom_css():
     }
     
     .stats-card h4 {
-        color: var(--text-light);
+        color: var(--text-dark);
     }
     
     .stats-card p {
         color: var(--text-secondary);
+    }
+    
+    /* Light theme specific adjustments */
+    .stApp {
+        background-color: var(--light-bg);
+    }
+    
+    /* Text inputs and form elements */
+    .stTextInput > div > div > input {
+        background-color: var(--card-bg);
+        color: var(--text-dark);
+        border-color: var(--border-color);
+    }
+    
+    .stTextInput > div > div > input:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+    }
+    
+    /* Dataframe and table styling */
+    .stDataFrame {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+    }
+    
+    /* Warning and error messages */
+    .stWarning {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #856404;
+        border-left: 4px solid #ffc107;
+    }
+    
+    .stError {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+    }
+    
+    .stSuccess {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
+    
+    .stInfo {
+        background-color: rgba(30, 136, 229, 0.1);
+        color: var(--text-primary);
+        border-left: 4px solid var(--primary-blue);
+    }
+    
+    /* Enhanced visual hierarchy with light blue gradients */
+    .gradient-bg-light {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+    }
+    
+    .gradient-bg-medium {
+        background: linear-gradient(135deg, #BBDEFB, #90CAF9);
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Hover effects for better interactivity */
+    .hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px var(--shadow-medium);
     }
     </style>
     """,

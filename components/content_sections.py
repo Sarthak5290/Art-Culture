@@ -67,7 +67,7 @@ def render_list_sections(list_sections):
         unsafe_allow_html=True,
     )
     st.markdown(
-        '<h3 class="item-section-title" style="color: var(--text-light);">📋 Additional Information</h3>',
+        '<h3 class="item-section-title" style="color: var(--text-dark);">📋 Additional Information</h3>',
         unsafe_allow_html=True,
     )
 
@@ -92,7 +92,7 @@ def render_other_sections(other_sections):
         unsafe_allow_html=True,
     )
     st.markdown(
-        '<h3 class="item-section-title" style="color: var(--text-light);">🔍 Detailed Information</h3>',
+        '<h3 class="item-section-title" style="color: var(--text-dark);">🔍 Detailed Information</h3>',
         unsafe_allow_html=True,
     )
 
@@ -131,7 +131,7 @@ def render_summary_section(display_title, value):
         border-radius: 12px;
         margin: 1.5rem 0;
         border-left: 4px solid var(--highlight-color);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 20px var(--shadow-light);
     ">
         <div style="
             display: flex;
@@ -151,7 +151,7 @@ def render_summary_section(display_title, value):
                 margin: 0;
                 font-size: 1.4rem;
                 font-weight: 600;
-                color: var(--text-light);
+                color: var(--text-dark);
             ">
                 Key Summary
             </h3>
@@ -160,7 +160,7 @@ def render_summary_section(display_title, value):
             color: var(--text-secondary);
             line-height: 1.7;
             font-size: 1rem;
-            background: linear-gradient(to right, var(--surface-bg), var(--background-color));
+            background: linear-gradient(to right, var(--surface-bg), var(--card-bg));
             padding: 1rem;
             border-radius: 8px;
         ">
@@ -179,6 +179,7 @@ def render_priority_section(display_title, value):
         background: var(--surface-bg);
         border-radius: 12px;
         border: 1px solid var(--border-color);
+        box-shadow: 0 2px 8px var(--shadow-light);
     ">
         <div style="
             display: flex;
@@ -196,7 +197,7 @@ def render_priority_section(display_title, value):
                 margin: 0;
                 font-size: 1.2rem;
                 font-weight: 600;
-                color: var(--text-light);
+                color: var(--text-dark);
             ">
                 {display_title}
             </h4>
@@ -224,6 +225,7 @@ def render_dict_section(dict_value):
                 border-radius: 8px;
                 margin: 0.5rem 0;
                 border: 1px solid var(--border-color);
+                box-shadow: 0 2px 4px var(--shadow-light);
             ">
                 <div style="
                     font-size: 0.9rem;
@@ -234,7 +236,7 @@ def render_dict_section(dict_value):
                 </div>
                 <div style="
                     font-size: 1rem;
-                    color: var(--text-light);
+                    color: var(--text-dark);
                     font-weight: 500;
                 ">
                     {sub_value}
@@ -252,6 +254,7 @@ def render_standard_section(display_title, value):
         border-radius: 8px;
         margin: 1rem 0;
         border-left: 3px solid var(--highlight-color);
+        box-shadow: 0 2px 4px var(--shadow-light);
     ">
         <div style="
             display: flex;
@@ -268,7 +271,7 @@ def render_standard_section(display_title, value):
             <h5 style="
                 margin: 0;
                 font-size: 1rem;
-                color: var(--text-light);
+                color: var(--text-dark);
             ">
                 {display_title}
             </h5>
@@ -290,8 +293,8 @@ def render_list_section(key, value_list):
 
     st.markdown(
         f"""
-    <div style="background: var(--surface-bg); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid var(--highlight-color); border: 1px solid var(--border-color);">
-        <h5 style="color: var(--text-light); margin: 0 0 1rem 0; font-size: 1.1rem;">📋 {display_title}</h5>
+    <div style="background: var(--surface-bg); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid var(--highlight-color); border: 1px solid var(--border-color); box-shadow: 0 2px 8px var(--shadow-light);">
+        <h5 style="color: var(--text-dark); margin: 0 0 1rem 0; font-size: 1.1rem;">📋 {display_title}</h5>
     """,
         unsafe_allow_html=True,
     )
@@ -356,10 +359,10 @@ def render_highlighted_info_box(title, content, color="var(--primary-blue)"):
         border-radius: 12px;
         margin: 1rem 0;
         border-left: 4px solid {color};
-        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 16px var(--shadow-light);
     ">
         <h4 style="
-            color: var(--text-light);
+            color: var(--text-dark);
             margin: 0 0 1rem 0;
             font-size: 1.2rem;
         ">
@@ -400,6 +403,7 @@ def render_stats_grid(stats_dict):
                 text-align: center;
                 border: 1px solid var(--border-color);
                 margin-bottom: 1rem;
+                box-shadow: 0 4px 12px var(--shadow-light);
             ">
                 <h3 style="
                     color: var(--highlight-color);

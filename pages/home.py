@@ -17,17 +17,18 @@ def inject_styles():
     st.markdown(
         """
         <style>
-        /* Global theme variables */
+        /* Global theme variables - Light Blue Theme */
         :root {
-            --primary-color: #4A90E2;
-            --secondary-color: #1C2541;
-            --bg-color: #0F172A;
-            --card-bg: #1E293B;
-            --text-light: #F1F5F9;
-            --text-secondary: #94A3B8;
-            --border-color: #334155;
-            --gradient-start: #4A90E2;
-            --gradient-end: #6FB3E0;
+            --primary-color: #1E88E5;
+            --secondary-color: #42A5F5;
+            --bg-color: #F0F8FF;
+            --card-bg: #FFFFFF;
+            --text-dark: #1A237E;
+            --text-secondary: #1976D2;
+            --border-color: #BBDEFB;
+            --gradient-start: #E3F2FD;
+            --gradient-end: #BBDEFB;
+            --shadow-light: rgba(30, 136, 229, 0.1);
         }
         
         /* Hide Streamlit menu & footer */
@@ -44,14 +45,15 @@ def inject_styles():
             height: 50vh;
             border-radius: 15px;
             margin-bottom: 2rem;
-            color: var(--text-light);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            box-shadow: 0 8px 32px var(--shadow-light);
         }
         .hero-overlay {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(30, 136, 229, 0.7);
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: 15px;
@@ -64,9 +66,11 @@ def inject_styles():
             font-size: 3rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .hero-subtitle {
             font-size: 1.25rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
         
         /* Section Titles */
@@ -74,12 +78,14 @@ def inject_styles():
             font-size: 2rem;
             color: var(--primary-color);
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         /* Stats Cards */
         .stats-card:hover {
             transform: translateY(-5px);
             transition: 0.3s;
+            box-shadow: 0 8px 25px var(--shadow-light);
         }
         
         /* Footer */
@@ -92,6 +98,64 @@ def inject_styles():
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             font-style: italic;
+            box-shadow: 0 4px 16px var(--shadow-light);
+        }
+        
+        /* Enhanced Category Cards for Light Theme */
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(30, 136, 229, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+            background: var(--card-bg);
+            color: var(--text-dark);
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .card-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* App Background */
+        .stApp {
+            background-color: var(--bg-color);
         }
         </style>
         """,
@@ -119,7 +183,8 @@ def render(app_data):
 
     # Explore Categories
     st.markdown(
-        '<h2 class="section-title mb-50px">Explore Categories</h2>', unsafe_allow_html=True
+        '<h2 class="section-title mb-50px">Explore Categories</h2>',
+        unsafe_allow_html=True,
     )
     cols_per_row = 4
     categories = list(app_data.items())

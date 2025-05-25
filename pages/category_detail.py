@@ -13,11 +13,11 @@ def render(app_data):
     category_info = app_data.get(selected_category_id)
 
     if category_info:
-        # Category header with hero styling - Updated for dark theme with moved up positioning
+        # Category header with hero styling - Updated for light-blue theme
         st.markdown(
             f"""
-        <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color);">
-            <h1 class="section-title" style="margin: 0; font-size: 2.8rem; color: var(--text-light);">{category_info['displayTitle']}</h1>
+        <div style="background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); padding: 2.5rem 2rem; margin: -1rem -1rem 2rem -1rem; border-radius: 0 0 25px 25px; text-align: center; border-bottom: 2px solid var(--border-color); box-shadow: 0 4px 20px var(--shadow-light);">
+            <h1 class="section-title" style="margin: 0; font-size: 2.8rem; color: var(--text-dark);">{category_info['displayTitle']}</h1>
             <p style="font-size: 1.1rem; color: var(--text-secondary); margin-top: 1rem; font-style: italic;">
                 {category_info['displayDescription']}
             </p>
@@ -31,7 +31,7 @@ def render(app_data):
         if not items:
             st.markdown(
                 """
-            <div style="text-align: center; padding: 3rem; background: var(--card-bg); border-radius: 20px; margin: 2rem 0; border: 1px solid var(--border-color);">
+            <div style="text-align: center; padding: 3rem; background: var(--card-bg); border-radius: 20px; margin: 2rem 0; border: 1px solid var(--border-color); box-shadow: 0 4px 16px var(--shadow-light);">
                 <h3 style="color: var(--text-secondary);">🎨 No items found</h3>
                 <p style="color: var(--text-muted);">We're working on adding more content to this category. Check back soon!</p>
             </div>
@@ -39,17 +39,17 @@ def render(app_data):
                 unsafe_allow_html=True,
             )
         else:
-            # Show item count and category stats - Updated for dark theme
+            # Show item count and category stats - Updated for light-blue theme
             st.markdown(
                 f"""
-             <div style="background: #1E1E1E; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.4); border: 1px solid #30363D;">
+             <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 4px 16px var(--shadow-light); border: 1px solid var(--border-color);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h4 style="margin: 0; color: #FFFFFF;">📚 Collection Overview</h4>
-                    <p style="margin: 0.5rem 0 0 0; color: #B8BCC8;">Discover {len(items)} amazing pieces in this collection</p>
+                    <h4 style="margin: 0; color: var(--text-dark);">📚 Collection Overview</h4>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Discover {len(items)} amazing pieces in this collection</p>
                 </div>
                 <div style="text-align: right;">
-                    <span style="background: #FFD700; color: #0E1117; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);">
+                    <span style="background: var(--highlight-color); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);">
                         {len(items)} Items
                     </span>
                 </div>
@@ -146,7 +146,7 @@ def render_detailed_list_item(item, category_id, item_index):
         st.markdown(
             f"""
         <div style="padding-left: 1.5rem;">
-            <h4 style="color: var(--text-light); margin-bottom: 0.8rem; font-size: 1.4rem;">{item_title}</h4>
+            <h4 style="color: var(--text-dark); margin-bottom: 0.8rem; font-size: 1.4rem;">{item_title}</h4>
             <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">{preview_text}</p>
         </div>
         """,
