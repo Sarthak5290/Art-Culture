@@ -38,11 +38,12 @@ def inject_styles():
 
         /* Hero Section */
         .hero {
-            position: relative;
-            background-image: url('https://images.unsplash.com/photo-1551958355-02e3c7860535?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80');
+           position: relative;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
+                        url('https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            height: 50vh;
+            height: 60vh;
             border-radius: 15px;
             margin-bottom: 2rem;
             color: white;
@@ -50,14 +51,15 @@ def inject_styles():
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 8px 32px var(--shadow-light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
         }
-        .hero-overlay {
-            background: rgba(30, 136, 229, 0.7);
+     .hero-overlay {
+            background: rgba(0, 0, 0, 0.5);
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: 15px;
         }
+
         .hero-text {
             position: relative;
             z-index: 1;

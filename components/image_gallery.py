@@ -36,22 +36,23 @@ def render_single_image(image_url):
             cursor: pointer;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 32px var(--shadow-light);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
-            border: 2px solid var(--border-color);
+            border: 2px solid #2D3748;
+            background: #1A202C;
         }}
         
         .single-image-container:hover {{
             transform: scale(1.02);
-            box-shadow: 0 12px 40px var(--shadow-medium);
-            border-color: var(--primary-blue);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            border-color: #4299E1;
         }}
         
         .single-image-fullscreen-btn {{
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--primary-blue);
+            background: #2B6CB0;
             color: white;
             border: none;
             border-radius: 50%;
@@ -61,13 +62,13 @@ def render_single_image(image_url):
             font-size: 1.2rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 8px var(--shadow-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }}
         
         .single-image-fullscreen-btn:hover {{
-            background: var(--secondary-blue);
+            background: #3182CE;
             transform: scale(1.1);
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }}
     </style>
     
@@ -137,16 +138,16 @@ def render_image_slider(images, selected_item):
 
 
 def get_slider_styles():
-    """Return CSS styles for the image slider."""
+    """Return CSS styles for the image slider with dark blue theme."""
     return """
     <style>
         .streamlit-gallery-container {
-            background: var(--card-bg);
+            background: #1A202C;
             border-radius: 16px;
             padding: 25px;
             margin: 20px 0;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 8px 32px var(--shadow-light);
+            border: 2px solid #2D3748;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
         .streamlit-slider-container {
@@ -165,17 +166,17 @@ def get_slider_styles():
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            background: var(--surface-bg);
+            background: #2D3748;
             aspect-ratio: 16/10;
             cursor: pointer;
             transition: transform 0.3s ease;
-            border: 2px solid var(--border-color);
+            border: 2px solid #4A5568;
         }
         
         .streamlit-main-image-wrapper:hover {
             transform: scale(1.01);
-            border-color: var(--primary-blue);
-            box-shadow: 0 4px 16px var(--shadow-light);
+            border-color: #4299E1;
+            box-shadow: 0 4px 16px rgba(66, 153, 225, 0.3);
         }
         
         .streamlit-main-image {
@@ -190,7 +191,7 @@ def get_slider_styles():
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(30, 136, 229, 0.9));
+            background: linear-gradient(transparent, rgba(26, 32, 44, 0.95));
             padding: 20px;
             color: white;
         }
@@ -198,21 +199,22 @@ def get_slider_styles():
         .streamlit-image-number {
             font-size: 2.5rem;
             font-weight: 900;
-            color: var(--highlight-color);
+            color: #63B3ED;
             line-height: 1;
             margin-bottom: 8px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
         
         .streamlit-image-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 5px;
+            color: #E2E8F0;
         }
         
         .streamlit-image-description {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: #CBD5E0;
             line-height: 1.4;
         }
         
@@ -220,7 +222,7 @@ def get_slider_styles():
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--primary-blue);
+            background: #2B6CB0;
             color: white;
             border: none;
             border-radius: 50%;
@@ -231,20 +233,20 @@ def get_slider_styles():
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             z-index: 20;
-            box-shadow: 0 2px 8px var(--shadow-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .streamlit-fullscreen-btn:hover {
-            background: var(--secondary-blue);
+            background: #3182CE;
             transform: scale(1.1);
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         
         .streamlit-navigation-arrows {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary-blue);
+            background: #2B6CB0;
             border: none;
             color: white;
             width: 45px;
@@ -255,13 +257,13 @@ def get_slider_styles():
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             z-index: 10;
-            box-shadow: 0 2px 8px var(--shadow-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .streamlit-navigation-arrows:hover {
-            background: var(--secondary-blue);
+            background: #3182CE;
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         
         .streamlit-prev-btn {
@@ -293,20 +295,20 @@ def get_slider_styles():
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
-            border: 2px solid var(--border-color);
-            background: var(--surface-bg);
-            box-shadow: 0 2px 8px var(--shadow-light);
+            border: 2px solid #4A5568;
+            background: #2D3748;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .streamlit-thumbnail:hover {
             transform: scale(1.05);
-            border-color: var(--primary-blue);
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            border-color: #4299E1;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
         }
         
         .streamlit-thumbnail.active {
-            border-color: var(--highlight-color);
-            box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
+            border-color: #63B3ED;
+            box-shadow: 0 0 15px rgba(99, 179, 237, 0.4);
         }
         
         .streamlit-thumbnail img {
@@ -324,14 +326,14 @@ def get_slider_styles():
             position: absolute;
             top: 8px;
             right: 8px;
-            background: var(--primary-blue);
+            background: #2B6CB0;
             color: white;
             font-weight: 700;
             font-size: 0.75rem;
             padding: 3px 6px;
             border-radius: 4px;
             backdrop-filter: blur(5px);
-            box-shadow: 0 1px 3px var(--shadow-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         
         .streamlit-dots-indicator {
@@ -345,18 +347,18 @@ def get_slider_styles():
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--border-color);
+            background: #4A5568;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .streamlit-dot.active {
-            background: var(--primary-blue);
+            background: #4299E1;
             transform: scale(1.2);
         }
         
         .streamlit-dot:hover {
-            background: var(--secondary-blue);
+            background: #63B3ED;
         }
         
         @media (max-width: 768px) {
@@ -378,7 +380,7 @@ def get_slider_styles():
 
 
 def get_fullscreen_overlay():
-    """Return HTML for the fullscreen overlay."""
+    """Return HTML for the fullscreen overlay with dark blue theme."""
     return """
     <!-- Full-screen overlay -->
     <div id="fullscreenOverlay" class="fullscreen-overlay" onclick="closeFullscreen(event)">
@@ -395,7 +397,7 @@ def get_fullscreen_overlay():
     </div>
     
     <style>
-        /* Full-screen modal styles - Light Blue Theme */
+        /* Full-screen modal styles - Dark Blue Theme */
         .fullscreen-overlay {
             display: none;
             position: fixed;
@@ -403,7 +405,7 @@ def get_fullscreen_overlay():
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(30, 136, 229, 0.95);
+            background: rgba(26, 32, 44, 0.95);
             z-index: 9999;
             backdrop-filter: blur(5px);
         }
@@ -434,17 +436,17 @@ def get_fullscreen_overlay():
             max-height: 100%;
             object-fit: contain;
             border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--border-color);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid #4A5568;
         }
         
         .fullscreen-close {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: var(--card-bg);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
+            background: #1A202C;
+            color: #E2E8F0;
+            border: 2px solid #4A5568;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -453,13 +455,13 @@ def get_fullscreen_overlay():
             font-weight: bold;
             transition: all 0.3s ease;
             z-index: 10001;
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         
         .fullscreen-close:hover {
-            background: #dc3545;
+            background: #E53E3E;
             color: white;
-            border-color: #dc3545;
+            border-color: #E53E3E;
             transform: scale(1.1);
         }
         
@@ -467,9 +469,9 @@ def get_fullscreen_overlay():
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--card-bg);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
+            background: #1A202C;
+            color: #E2E8F0;
+            border: 2px solid #4A5568;
             border-radius: 50%;
             width: 60px;
             height: 60px;
@@ -478,13 +480,13 @@ def get_fullscreen_overlay():
             font-weight: bold;
             transition: all 0.3s ease;
             z-index: 10001;
-            box-shadow: 0 4px 12px var(--shadow-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         
         .fullscreen-nav:hover {
-            background: var(--primary-blue);
+            background: #2B6CB0;
             color: white;
-            border-color: var(--primary-blue);
+            border-color: #2B6CB0;
             transform: translateY(-50%) scale(1.1);
         }
         
@@ -501,27 +503,27 @@ def get_fullscreen_overlay():
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--card-bg);
-            color: var(--text-primary);
+            background: #1A202C;
+            color: #E2E8F0;
             padding: 15px 25px;
             border-radius: 25px;
             backdrop-filter: blur(10px);
             text-align: center;
             max-width: 80%;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 16px var(--shadow-medium);
+            border: 2px solid #4A5568;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
         
         .fullscreen-info h3 {
             margin: 0 0 5px 0;
             font-size: 1.2rem;
-            color: var(--primary-blue);
+            color: #63B3ED;
         }
         
         .fullscreen-info p {
             margin: 0;
             font-size: 0.9rem;
-            color: var(--text-secondary);
+            color: #CBD5E0;
         }
         
         @media (max-width: 768px) {
