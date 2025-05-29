@@ -161,6 +161,96 @@ def inject_styles():
         .stApp {
             background-color: var(--bg-color);
         }
+
+        /* Chat Bot Style Redirect Button */
+        .redirect-button {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(30, 136, 229, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+        
+        .redirect-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(30, 136, 229, 0.5);
+            text-decoration: none;
+            color: white;
+            animation: none;
+        }
+        
+        .redirect-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Pulse animation for chat bot button */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 6px 25px rgba(30, 136, 229, 0.4);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(30, 136, 229, 0.6), 0 0 0 8px rgba(30, 136, 229, 0.1);
+            }
+        }
+        
+        /* Tooltip for the chat bot button */
+        .redirect-button::before {
+            content: 'Visit Google';
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+        }
+        
+        .redirect-button:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Arrow for tooltip */
+        .redirect-button::after {
+            content: '';
+            position: absolute;
+            bottom: 62px;
+            right: 15px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .redirect-button:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -202,5 +292,12 @@ def render(app_data):
             with cols[j]:
                 render_category_card(category_id, category_info)
 
-    # Render Chat Bot Widget
-    render_chat_bot()
+    # Add chat bot style redirect button at bottom right
+    st.markdown(
+        """
+        <a href="https://google.com" target="_blank" class="redirect-button">
+            💬
+        </a>
+        """,
+        unsafe_allow_html=True,
+    )
